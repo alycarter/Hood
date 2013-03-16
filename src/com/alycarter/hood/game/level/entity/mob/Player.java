@@ -9,7 +9,7 @@ import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
 
 public class Player extends Mob{
-	public final static double moveSpeed = 4;
+	public final static double moveSpeed = 3;
 	private double faceDirection;
 	
 	private static final double attackDelay = 0.5;
