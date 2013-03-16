@@ -6,12 +6,13 @@ import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.level.entity.mob.Enemy;
 import com.alycarter.hood.game.level.entity.mob.EnemyArcher;
 import com.alycarter.hood.game.level.entity.mob.EnemySpawner;
+import com.alycarter.hood.game.level.entity.mob.Player;
 import com.alycarter.hood.game.level.entity.mob.Rapunzel;
 
 public class RapunzelLevel extends Level{
 	
-	private EnemySpawner spawnerTopLeft;
-	private EnemySpawner spawnerTopRight;
+	private EnemySpawner spawnerLeft;
+	private EnemySpawner spawnerRight;
 	private EnemySpawner spawnerRapunzel;
 	
 	public RapunzelLevel(Game game) {
@@ -19,17 +20,20 @@ public class RapunzelLevel extends Level{
 	}
 	
 	public void onLoad(){
-		spawnerTopLeft=new EnemySpawner(game,new Point2D.Double(1,1),45,10);
-		spawnerTopRight = new EnemySpawner(game,new Point2D.Double(9,1),-45,10);
-		spawnerRapunzel = new EnemySpawner(game,new Point2D.Double(5,1),0,10);
+		spawnerLeft=new EnemySpawner(game,new Point2D.Double(5,6),-90,10);
+		spawnerRight = new EnemySpawner(game,new Point2D.Double(7,6),90,10);
+		spawnerRapunzel = new EnemySpawner(game,new Point2D.Double(6,6),0,10);
 		entities.add(spawnerRapunzel);
-		entities.add(spawnerTopLeft);
-		entities.add(spawnerTopRight);
+		entities.add(spawnerLeft);
+		entities.add(spawnerRight);
 		addWave(new Wave1(this));
 		addWave(new Wave2(this));
 		addWave(new Wave3(this));
 		addWave(new Wave4(this));
 		addWave(new Wave5(this));
+		player = new Player(game,new Point2D.Double(6, 10));
+		entities.add(player);
+		
 	}
 	
 	class Wave1 extends Wave{
@@ -39,10 +43,10 @@ public class RapunzelLevel extends Level{
 		}
 
 		public void onStart(){
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
 		}
 		
 	}
@@ -54,8 +58,8 @@ public class RapunzelLevel extends Level{
 		}
 
 		public void onStart(){
-			spawnerTopLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 		}
 		
 	}
@@ -66,12 +70,12 @@ public class RapunzelLevel extends Level{
 		}
 
 		public void onStart(){
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 		}
 		
 	}
@@ -82,16 +86,16 @@ public class RapunzelLevel extends Level{
 		}
 	
 		public void onStart(){
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 		}
 	}
 
@@ -102,18 +106,18 @@ public class RapunzelLevel extends Level{
 		}
 
 		public void onStart(){
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
-			spawnerTopRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerRapunzel.addToSpawnQueue(new Rapunzel(game,new Point2D.Double(0, 0)));
 		}
 		

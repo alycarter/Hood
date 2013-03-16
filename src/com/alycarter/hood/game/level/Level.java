@@ -2,7 +2,6 @@ package com.alycarter.hood.game.level;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import com.alycarter.hood.game.Game;
@@ -39,12 +38,10 @@ public class Level extends Thread{
 			public void run(){
 				map=new Map();
 				entities=new ArrayList<Entity>();
-				player = new Player(game,new Point2D.Double(map.getMapWidth()/2, map.getMapHeight()/2));
-				cursor = new Cursor(game);
-				camera = new Camera(game);
-				entities.add(player);
 				waves= new ArrayList<Wave>();
 				onLoad();
+				cursor = new Cursor(game);
+				camera = new Camera(game);
 				if(waves.size()>0){
 					waves.get(0).startWave();
 				}

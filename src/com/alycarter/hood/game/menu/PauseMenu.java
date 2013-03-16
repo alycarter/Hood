@@ -14,8 +14,8 @@ public class PauseMenu extends Menu{
 		});
 		addButton(new Button(game,10,120,100,100){
 			public void onClick(){
-				game.mainMenu.showMenu();
 				game.pauseMenu.hideMenu();
+				game.mainMenu.showMenu();
 			}
 		});
 	}
