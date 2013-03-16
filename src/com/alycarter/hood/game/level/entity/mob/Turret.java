@@ -12,7 +12,7 @@ public class Turret extends Mob{
 	private double attackCoolDown = 0;
 	private double range;
 	public Turret(Game game, Point2D.Double location, double range) {
-		super(game,Entity.TYPE_TURRET,location,5,0,0.8,0.5);
+		super(game,Entity.TYPE_TURRET,location,3,0,0.8,0.5);
 		sprite.addAnimationLayer(new TurretAnimation(game));
 		this.range=range;
 	}
@@ -42,7 +42,7 @@ public class Turret extends Mob{
 					double xl=getLocation().getX()+(getDirectionAsVector().getX()*(getImageWidth()/2));
 					double yl=getLocation().getY()+(getDirectionAsVector().getY()*(getImageWidth()/2));
 					int[] t ={Entity.TYPE_ENEMY}; 
-					getGame().getLevel().entities.add(new Arrow(getGame(),new Point2D.Double(xl,yl),getDirectionAsAngle(),4,range,0.5,t));
+					getGame().getLevel().entities.add(new Arrow(getGame(),new Point2D.Double(xl,yl),getDirectionAsAngle(),4,range,0.25,t));
 					attackCoolDown=attackDelay;
 				}
 			}

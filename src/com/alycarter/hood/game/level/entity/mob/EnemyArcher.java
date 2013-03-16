@@ -16,7 +16,7 @@ public class EnemyArcher extends Mob{
 	private final double attackDelay = 1;
 	private double attackCoolDown = 0;
 	
-	private double walkSpeed = 4;
+	private double walkSpeed = 2.5;
 
 	private Point2D.Double targetTile = null;
 	
@@ -132,7 +132,7 @@ public class EnemyArcher extends Mob{
 					if(!(x==0&&y==0)){
 						int xl = currentNode.x+x;
 						int yl = currentNode.y+y;
-						if(getGame().getLevel().getMap().getMovable(xl, yl)){
+						if(getGame().getLevel().getMap().getMovable(xl, yl)&&!blockedTile(xl, yl)){
 							boolean closedNode = false;
 							for (int i=0;i<closed.size();i++){
 								Node temp = closed.get(i);
@@ -201,6 +201,18 @@ public class EnemyArcher extends Mob{
 		}else{
 			targetTile=null;
 		}
+	}
+	
+	public boolean blockedTile(int x, int y){
+		for (int i=0;i<getGame().getLevel().entities.size();i++){
+			Entity e = getGame().getLevel().entities.get(i);
+			if(e.entityType==Entity.TYPE_TURRET){
+				if ((int)e.getLocation().getX()==x && (int)e.getLocation().getY()==y){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 }
