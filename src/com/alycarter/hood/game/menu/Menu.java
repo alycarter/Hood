@@ -26,7 +26,6 @@ public class Menu {
 	
 	public void render(Graphics g){
 		g.setColor(Color.BLACK);
-		g.fillRect((int)game.controls.mouseLocation.getX()-2,(int) game.controls.mouseLocation.getY()-2, 4, 4);
 		for (int i=0;i<buttons.size();i++){
 			Button b = buttons.get(i);
 			g.drawRect((int)b.rectangle.getX(),(int) b.rectangle.getY(),(int) b.rectangle.getWidth(), (int)b.rectangle.getHeight());
@@ -43,10 +42,12 @@ public class Menu {
 	
 	public void hideMenu(){
 		shown=false;
+		game.hideCursor();
 	}
 	
 	public void showMenu(){
 		shown=true;
+		game.showCursor();
 	}
 
 }

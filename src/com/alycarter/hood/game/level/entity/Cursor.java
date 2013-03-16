@@ -25,6 +25,11 @@ public class Cursor extends Entity{
 		y = ((getGame().HEIGHT/2)-getGame().controls.mouseLocation.getY())/Tile.TILERESOLUTION;
 		x = (x-getGame().getLevel().camera.getLocation().getX())*-1;
 		y = (y-getGame().getLevel().camera.getLocation().getY())*-1;
+		if(x<0||y<0||x>getGame().getLevel().getMap().getMapWidth()||y>getGame().getLevel().getMap().getMapHeight()){
+			getGame().showCursor();
+		}else{
+			getGame().hideCursor();
+		}
 		this.jumpToLocation(x, y);
 		if(sprite.getAnimationLayer(0).getAnimationName().equals("turret")){
 			sparkleDelay-=getGame().getDeltaTime();

@@ -27,9 +27,10 @@ public class Game extends Canvas implements Runnable{
 	public final int HEIGHT = (WIDTH/16)*9;
 	public final String NAME = "Hood";
 	
-	public MainMenu mainMenu = new MainMenu(this);
-	public PauseMenu pauseMenu = new PauseMenu(this);
-	public GameOverMenu gameOverMenu = new GameOverMenu(this);
+	public MainMenu mainMenu;
+	public PauseMenu pauseMenu;
+	public GameOverMenu gameOverMenu;
+	
 	private Thread gameThread = new Thread(this);
 	
 	private JFrame frame;
@@ -60,18 +61,14 @@ public class Game extends Canvas implements Runnable{
 		setSize(WIDTH,HEIGHT);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
-		try {
-			BufferedImage c;
-			c = ImageIO.read(Game.class.getResourceAsStream("/blank.png"));
-			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(1, 1), "cursor");
-			frame.getContentPane().setCursor(cursor);
-		} catch (IOException e) {e.printStackTrace();}
 		frame.setVisible(true);
 		this.addKeyListener(controls);
 		this.addMouseListener(controls);
+		mainMenu=new MainMenu(this);
+		pauseMenu= new PauseMenu(this);
+		gameOverMenu = new GameOverMenu(this);
 		mainMenu.showMenu();
 		level = new RapunzelLevel(this);
-		//level.loadLevel();
 	}
 
 	@Override
@@ -158,4 +155,21 @@ public class Game extends Canvas implements Runnable{
 		return level;
 	}
 	
+	public void showCursor(){
+		try {
+			BufferedImage c;
+			c = ImageIO.read(Game.class.getResourceAsStream("/cross.png"));
+			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(16, 16), "cursor");
+			frame.getContentPane().setCursor(cursor);
+		} catch (IOException e) {e.printStackTrace();}
+	}
+	
+	public void hideCursor(){
+		try {
+			BufferedImage c;
+			c = ImageIO.read(Game.class.getResourceAsStream("/blank.png"));
+			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(16, 16), "cursor");
+			frame.getContentPane().setCursor(cursor);
+		} catch (IOException e) {e.printStackTrace();}
+	}
 }
