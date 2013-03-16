@@ -162,6 +162,7 @@ public class Enemy extends Mob{
 			target=null;
 		}
 	}
+	
 	public void onDamge(Entity sender) {
 		stunned=0.5;
 	}

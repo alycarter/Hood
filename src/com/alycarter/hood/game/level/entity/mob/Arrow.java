@@ -12,7 +12,8 @@ public class Arrow extends Entity{
 	private double duration;
 	private double sparkleDelay=0;
 	private double damage;
-	public Arrow(Game game, Point2D.Double location, double direction, double speed, double maxDistance, double damage) {
+	private int[] targets;
+	public Arrow(Game game, Point2D.Double location, double direction, double speed, double maxDistance, double damage, int targets[]) {
 		super(game, Entity.TYPE_ARROW, location, 1, 1, 0.3, 0.1, false, true);
 		setDirection(direction);
 		setSpeed(speed);
@@ -21,6 +22,7 @@ public class Arrow extends Entity{
 		sprite.getAnimationLayer(0).setDirection(direction);
 		hideHealthBar();
 		this.damage=damage;
+		this.targets=targets;
 	}
 	
 	public void onUpdate(){
@@ -39,8 +41,13 @@ public class Arrow extends Entity{
 	}
 	
 	public void onCollide(Entity entity){
-		if(entity.entityType==Entity.TYPE_ENEMY){
-			entity.damage(this, damage);
+		boolean found= false;
+		int i=0;
+		while ((!found)&&(i<targets.length)){
+			if(entity.entityType==targets[i]){
+				entity.damage(this, damage);
+			}
+			i++;
 		}
 		this.markRemoved();
 	}

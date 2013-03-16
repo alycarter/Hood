@@ -19,29 +19,30 @@ public class Turret extends Mob{
 	
 	public void onUpdate(){
 		Entity closest = null;
-		for(int i= 0;i<getGame().getLevel().entities.size();i++){
-			Entity temp=getGame().getLevel().entities.get(i);
-			if(temp.entityType==Entity.TYPE_ENEMY&&!temp.isRemoved()){
-				if(closest==null){
-					closest = getGame().getLevel().entities.get(i);
-				}else{
-					if(distanceTo(temp)<distanceTo(closest)){
+		attackCoolDown-=getGame().getDeltaTime();
+		if(attackCoolDown<=0){
+			for(int i= 0;i<getGame().getLevel().entities.size();i++){
+				Entity temp=getGame().getLevel().entities.get(i);
+				if(temp.entityType==Entity.TYPE_ENEMY&&!temp.isRemoved()){
+					if(closest==null){
 						closest = getGame().getLevel().entities.get(i);
+					}else{
+						if(distanceTo(temp)<distanceTo(closest)){
+							closest = getGame().getLevel().entities.get(i);
+						}
 					}
 				}
 			}
-		}
-		if(closest !=null){
-			if(distanceTo(closest)<range){
-				double x = closest.getLocation().getX()-getLocation().getX();
-				double y = closest.getLocation().getY()-getLocation().getY();
-				this.setDirection(new Point2D.Double(x, y));
-				sprite.getAnimationLayer(0).setDirection(getDirectionAsAngle());
-				attackCoolDown-=getGame().getDeltaTime();
-				if(attackCoolDown<=0){
+			if(closest !=null){
+				if(distanceTo(closest)<range){
+					double x = closest.getLocation().getX()-getLocation().getX();
+					double y = closest.getLocation().getY()-getLocation().getY();
+					this.setDirection(new Point2D.Double(x, y));
+					sprite.getAnimationLayer(0).setDirection(getDirectionAsAngle());
 					double xl=getLocation().getX()+(getDirectionAsVector().getX()*(getImageWidth()/2));
 					double yl=getLocation().getY()+(getDirectionAsVector().getY()*(getImageWidth()/2));
-					getGame().getLevel().entities.add(new Arrow(getGame(),new Point2D.Double(xl,yl),getDirectionAsAngle(),4,range,0.5));
+					int[] t ={Entity.TYPE_ENEMY}; 
+					getGame().getLevel().entities.add(new Arrow(getGame(),new Point2D.Double(xl,yl),getDirectionAsAngle(),4,range,0.5,t));
 					attackCoolDown=attackDelay;
 				}
 			}

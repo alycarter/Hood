@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.level.entity.mob.Enemy;
+import com.alycarter.hood.game.level.entity.mob.EnemyArcher;
 import com.alycarter.hood.game.level.entity.mob.EnemySpawner;
 import com.alycarter.hood.game.level.entity.mob.Rapunzel;
 
@@ -36,6 +37,7 @@ public class RapunzelLevel extends Level{
 		}
 
 		public void onStart(){
+			spawnerTopLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
 			spawnerTopRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
 			spawnerTopLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));

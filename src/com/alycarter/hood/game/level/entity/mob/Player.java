@@ -90,7 +90,7 @@ public class Player extends Mob{
 		}
 		if(getGame().controls.rightMousePressed()){
 			sprite.getAnimationLayer(0).setCurrentAnimation("bow", true);
-			bowTension+=getGame().getDeltaTime();
+			bowTension+=getGame().getDeltaTime()*2;
 			if(bowTension>1){
 				bowTension=1;
 			}
@@ -99,7 +99,8 @@ public class Player extends Mob{
 			if(getGame().controls.rightMouseClicked()){
 				double xl=getLocation().getX()+(angleAsVector(faceDirection).getX()*(getImageWidth()/2));
 				double yl=getLocation().getY()+(angleAsVector(faceDirection).getY()*(getImageWidth()/2));
-				getGame().getLevel().entities.add(new Arrow(getGame(),new Point2D.Double(xl,yl),faceDirection,5*bowTension,3.5*bowTension,1*bowTension));
+				int[] t ={Entity.TYPE_ENEMY}; 
+				getGame().getLevel().entities.add(new Arrow(getGame(),new Point2D.Double(xl,yl),faceDirection,5*bowTension,3.5*bowTension,1*bowTension,t));
 				bowTension=0;
 			}
 		}
