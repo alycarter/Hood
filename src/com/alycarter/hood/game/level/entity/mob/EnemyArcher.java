@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.level.entity.Entity;
+import com.alycarter.hood.game.level.entity.particle.Pickup;
 import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
 
@@ -42,6 +43,13 @@ public class EnemyArcher extends Mob{
 			}
 		}
 		sprite.getAnimationLayer(0).setDirection(getDirectionAsAngle());
+	}
+	
+	public void onKill(Entity sender) {
+		markRemoved();
+		if(Math.random()<0.5){
+			getGame().getLevel().entities.add(new Pickup(getGame(),getLocation()));
+		}
 	}
 }
 
