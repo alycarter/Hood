@@ -1,0 +1,63 @@
+package com.alycarter.hood.game.level.entity;
+
+import java.awt.geom.Point2D;
+
+import com.alycarter.hood.game.Game;
+import com.alycarter.hood.game.level.entity.particle.Particle;
+import com.alycarter.hood.game.level.entity.sprite.Animation;
+import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
+import com.alycarter.hood.game.level.map.tile.Tile;
+
+public class Cursor extends Entity{
+
+	private double sparkleDelay=0;
+	
+	public Cursor(Game game) {
+		super(game,Entity.TYPE_UTILITY,new Point2D.Double(0, 0),1,1,0.25,0,false,false);
+		hideHealthBar();
+		sprite.addAnimationLayer(new CursorAnimation(game));
+	}
+	
+	public void onUpdate(){
+		double x;
+		double y;
+		x = ((getGame().WIDTH/2)-getGame().controls.mouseLocation.getX())/Tile.TILERESOLUTION;
+		y = ((getGame().HEIGHT/2)-getGame().controls.mouseLocation.getY())/Tile.TILERESOLUTION;
+		x = (x-getGame().getLevel().camera.getLocation().getX())*-1;
+		y = (y-getGame().getLevel().camera.getLocation().getY())*-1;
+		this.jumpToLocation(x, y);
+		if(sprite.getAnimationLayer(0).getAnimationName().equals("turret")){
+			sparkleDelay-=getGame().getDeltaTime();
+			if(sparkleDelay<=0){
+				x = (Math.random()*getImageWidth())-(getImageWidth()/2)+getLocation().getX();
+				y = (Math.random()*getImageWidth())-(getImageWidth()/2)+getLocation().getY();
+				Particle p = new Particle(getGame(),new Point2D.Double(x, y),0.15,0.3,Math.random()*360,0.1);
+				p.sprite.addAnimationLayer(new ParticleAnimation(getGame()));
+				p.sprite.getAnimationLayer(0).setDirection(Math.random()*360);
+				getGame().getLevel().entities.add(p);
+				sparkleDelay=0.1;
+			}
+		}
+	}
+	
+	
+
+	
+
+}
+
+class CursorAnimation extends AnimationLayer{
+	
+	public CursorAnimation(Game game){
+		addAnimation(new Animation(game,"target","target.png",16,1),true);
+		addAnimation(new Animation(game,"turret","turret.png",128,1),true);
+		addAnimation(new Animation(game,"cross","cross.png",16,1),true);
+	}
+}
+
+class ParticleAnimation extends AnimationLayer{
+	
+	public ParticleAnimation(Game game){
+		addAnimation(new Animation(game,"sparkle","sparkle.png",8,1),true);
+	}
+}
