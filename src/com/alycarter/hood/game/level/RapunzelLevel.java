@@ -55,7 +55,7 @@ public class RapunzelLevel extends Level{
 
 		public void onStart(){
 			spawnerTopLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
-			spawnerTopLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+			spawnerTopRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 		}
 		
 	}

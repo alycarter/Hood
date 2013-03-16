@@ -83,8 +83,8 @@ public class Enemy extends Mob{
 		ArrayList<Node> open = new ArrayList<Node>();
 		ArrayList<Node> closed = new ArrayList<Node>();
 		Node end=new Node(null,(int)getGame().getLevel().player.getLocation().getX(),(int)getGame().getLevel().player.getLocation().getY(),0,0);
-		Node start=new Node(null,(int)getLocation().getX(),(int)getLocation().getY(),end.x-(int)getGame().getLevel().player.getLocation().getX(),end.y-(int)getGame().getLevel().player.getLocation().getY());
-		Node currentNode=start;
+		Node start=new Node(null,(int)getLocation().getX(),(int)getLocation().getY(),0,0);
+		Node currentNode=start; 
 		open.add(currentNode);
 		while(!closed.contains(end)&&currentNode!=null){
 			for (int x=-1;x<=1;x++){

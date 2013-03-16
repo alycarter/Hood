@@ -157,4 +157,5 @@ public class Game extends Canvas implements Runnable{
 	public Level getLevel(){
 		return level;
 	}
+	
 }

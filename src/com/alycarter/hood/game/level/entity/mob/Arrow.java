@@ -15,6 +15,9 @@ public class Arrow extends Entity{
 	private int[] targets;
 	public Arrow(Game game, Point2D.Double location, double direction, double speed, double maxDistance, double damage, int targets[]) {
 		super(game, Entity.TYPE_ARROW, location, 1, 1, 0.3, 0.1, false, true);
+		if(speed<0.1){
+			speed=0.1;
+		}
 		setDirection(direction);
 		setSpeed(speed);
 		duration = maxDistance/getSpeed();

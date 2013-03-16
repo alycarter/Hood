@@ -1,9 +1,11 @@
 package com.alycarter.hood.game.level.entity.mob;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.level.entity.Entity;
+import com.alycarter.hood.game.level.entity.particle.Particle;
 import com.alycarter.hood.game.level.entity.particle.Pickup;
 import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
@@ -11,9 +13,12 @@ import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
 public class EnemyArcher extends Mob{
 	private double arrowDuration = 3;
 	private double arrowDamage = 0.5;
-	private double walkSpeed = 4;
 	private final double attackDelay = 1;
 	private double attackCoolDown = 0;
+	
+	private double walkSpeed = 4;
+
+	private Point2D.Double targetTile = null;
 	
 	public EnemyArcher(Game game ,Point2D.Double location) {
 		super(game,Entity.TYPE_ENEMY,location,2.5,0,1.5,0.5);
@@ -25,12 +30,56 @@ public class EnemyArcher extends Mob{
 		double x = getGame().getLevel().player.getLocation().getX()-getLocation().getX();
 		double y = getGame().getLevel().player.getLocation().getY()-getLocation().getY();
 		setDirection(new Point2D.Double(x, y));
-		if(distanceBetweenHitBoxes(getGame().getLevel().player)>arrowDuration){
-			setSpeed(walkSpeed);
-		}else{
-			if(distanceBetweenHitBoxes(getGame().getLevel().player)<1.5){
-				setDirection(getDirectionAsAngle()+180);
+		sprite.getAnimationLayer(0).setDirection(getDirectionAsAngle());
+		if(distanceTo(getGame().getLevel().player)>arrowDuration){
+			Point2D.Double closest = null;
+			for (x=0;x<getGame().getLevel().getMap().getMapWidth();x++){
+				for (y=0;y<getGame().getLevel().getMap().getMapHeight();y++){
+					if(getGame().getLevel().player.distanceTo(x+0.5, y+0.5)<arrowDuration){
+						if((x!=(int)getLocation().getX())&&(y!=(int)getLocation().getY())){
+							if(closest==null||distanceTo(x+0.5, y+0.5)<distanceTo(closest)){
+								if(getGame().getLevel().getMap().getMovable(x, y)){
+									closest = new Point2D.Double(x+0.5, y+0.5);
+								}
+							}
+						}
+					}
+				}
+			}
+			if(closest!=null){
+				findPath(closest);
+			}
+			if(targetTile!=null){
+				double xt = targetTile.getX()-getLocation().getX();
+				double yt = targetTile.getY()-getLocation().getY();
+				this.setDirection(new Point2D.Double(xt, yt));
 				setSpeed(walkSpeed);
+			}
+		}else{
+			if(distanceTo(getGame().getLevel().player)<1.5){
+				Point2D.Double closest = null;
+				for (x=0;x<getGame().getLevel().getMap().getMapWidth();x++){
+					for (y=0;y<getGame().getLevel().getMap().getMapHeight();y++){
+						if(getGame().getLevel().player.distanceTo(x+0.5, y+0.5)>1.5){
+							if((x!=(int)getLocation().getX())&&(y!=(int)getLocation().getY())){
+								if(closest==null||distanceTo(x+0.5, y+0.5)<distanceTo(closest)){
+									if(getGame().getLevel().getMap().getMovable(x, y)){
+										closest = new Point2D.Double(x+0.5, y+0.5);
+									}
+								}
+							}
+						}
+					}
+				}
+				if(closest!=null){
+					findPath(closest);
+				}
+				if(targetTile!=null){
+					double xt = targetTile.getX()-getLocation().getX();
+					double yt = targetTile.getY()-getLocation().getY();
+					this.setDirection(new Point2D.Double(xt, yt));
+					setSpeed(walkSpeed);
+				}
 			}else{
 				setSpeed(0);
 				if(attackCoolDown<=0){
@@ -42,7 +91,7 @@ public class EnemyArcher extends Mob{
 				}
 			}
 		}
-		sprite.getAnimationLayer(0).setDirection(getDirectionAsAngle());
+		
 	}
 	
 	public void onKill(Entity sender) {
@@ -51,6 +100,109 @@ public class EnemyArcher extends Mob{
 			getGame().getLevel().entities.add(new Pickup(getGame(),getLocation()));
 		}
 	}
+	
+	public void findPath(Point2D.Double t){
+		class Node{
+			Node parent;
+			int x;
+			int y;
+			double g;
+			double h;
+			double f;
+			
+			public Node(Node parent,int x, int y, double g, double h){
+				this.parent=parent;
+				this.x=x;
+				this.y=y;
+				this.g=g;
+				this.h=h;
+				this.f=g+h;
+				
+			}
+		}	
+		ArrayList<Node> open = new ArrayList<Node>();
+		ArrayList<Node> closed = new ArrayList<Node>();
+		Node end=new Node(null,(int)t.getX(),(int)t.getY(),0,0);
+		Node start=new Node(null,(int)getLocation().getX(),(int)getLocation().getY(),0,0);
+		Node currentNode=start;
+		open.add(currentNode);
+		while(!closed.contains(end)&&currentNode!=null){
+			for (int x=-1;x<=1;x++){
+				for (int y=-1;y<=1;y++){
+					if(!(x==0&&y==0)){
+						int xl = currentNode.x+x;
+						int yl = currentNode.y+y;
+						if(getGame().getLevel().getMap().getMovable(xl, yl)){
+							boolean closedNode = false;
+							for (int i=0;i<closed.size();i++){
+								Node temp = closed.get(i);
+								if(temp.x==xl&&temp.y==yl){
+									closedNode=true;
+								}
+							}
+							if(!closedNode){
+								boolean openNode = false;
+								for (int i=0;i<open.size();i++){
+									Node temp = open.get(i);
+									if(temp.x==xl&&temp.y==yl){
+										openNode=true;
+									}
+								}
+								if(!openNode){
+									double sd = currentNode.g+Math.sqrt((Math.abs(x)*Math.abs(x))+(Math.abs(y)*Math.abs(y)));
+									double ed = Math.abs(end.x-xl)+Math.abs(end.y-yl);
+									if(xl==end.x&&yl==end.y){
+										end.parent=currentNode;
+										open.add(end);
+									}else{
+										open.add(new Node(currentNode,xl,yl,sd,ed));
+									}
+								}else{
+									double sd = currentNode.g+Math.abs(x)+Math.abs(y);
+									Node target=null;
+									for (int i=0;i<open.size();i++){
+										Node temp = open.get(i);
+										if(temp.x==xl&&temp.y==yl){
+											target = open.get(i);
+										}
+									}
+									if(sd<target.g){
+										target.g=sd;
+										target.parent=currentNode;
+										target.f=target.g+target.h;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			closed.add(currentNode);
+			open.remove(currentNode);
+			
+			currentNode=null;
+			for (int i=0;i<open.size();i++){
+				if(currentNode==null||open.get(i).f<currentNode.f){
+					currentNode=open.get(i);
+				}
+			}
+		}
+		if (end.parent!=null){
+			Node parent = end;
+			while(parent!=null){
+				if(getGame().debugMode){
+					getGame().getLevel().entities.add(new Particle(getGame(), new Point2D.Double(parent.x+0.5, parent.y+0.5), 0.1, 0.1, 0, 0));
+				}
+				if(parent.parent==start){
+					targetTile= new Point2D.Double(parent.x+0.5, parent.y+0.5);
+				}
+				parent=parent.parent;
+			}
+		}else{
+			targetTile=null;
+		}
+	}
+	
 }
 
 class ArcherAnimation extends AnimationLayer{
