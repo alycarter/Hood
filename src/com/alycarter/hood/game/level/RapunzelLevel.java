@@ -20,9 +20,9 @@ public class RapunzelLevel extends Level{
 	}
 	
 	public void onLoad(){
-		spawnerLeft=new EnemySpawner(game,new Point2D.Double(5,6),-90,10);
-		spawnerRight = new EnemySpawner(game,new Point2D.Double(7,6),90,10);
-		spawnerRapunzel = new EnemySpawner(game,new Point2D.Double(6,6),0,10);
+		spawnerLeft=new EnemySpawner(game,new Point2D.Double(5,6),-90,2.75);
+		spawnerRight = new EnemySpawner(game,new Point2D.Double(7,6),90,2.25);
+		spawnerRapunzel = new EnemySpawner(game,new Point2D.Double(6,6),0,0);
 		entities.add(spawnerRapunzel);
 		entities.add(spawnerLeft);
 		entities.add(spawnerRight);
@@ -39,7 +39,7 @@ public class RapunzelLevel extends Level{
 	class Wave1 extends Wave{
 		
 		public Wave1(Level level) {
-			super(level);
+			super(level,5);
 		}
 
 		public void onStart(){
@@ -47,6 +47,9 @@ public class RapunzelLevel extends Level{
 			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
 			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
 			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+		}
+		public boolean extraEndConditionsMet() {
+			return (spawnerLeft.hasEmptySpawnQueue()&&spawnerRight.hasEmptySpawnQueue()&&spawnerRapunzel.hasEmptySpawnQueue());
 		}
 		
 	}
@@ -54,19 +57,22 @@ public class RapunzelLevel extends Level{
 	class Wave2 extends Wave{
 		
 		public Wave2(Level level) {
-			super(level);
+			super(level,5);
 		}
 
 		public void onStart(){
 			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
+		}
+		public boolean extraEndConditionsMet() {
+			return (spawnerLeft.hasEmptySpawnQueue()&&spawnerRight.hasEmptySpawnQueue()&&spawnerRapunzel.hasEmptySpawnQueue());
 		}
 		
 	}
 	class Wave3 extends Wave{
 		
 		public Wave3(Level level) {
-			super(level);
+			super(level,5);
 		}
 
 		public void onStart(){
@@ -77,12 +83,15 @@ public class RapunzelLevel extends Level{
 			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 		}
+		public boolean extraEndConditionsMet() {
+			return (spawnerLeft.hasEmptySpawnQueue()&&spawnerRight.hasEmptySpawnQueue()&&spawnerRapunzel.hasEmptySpawnQueue());
+		}
 		
 	}
 	class Wave4 extends Wave{
 		
 		public Wave4(Level level) {
-			super(level);
+			super(level,5);
 		}
 	
 		public void onStart(){
@@ -97,12 +106,15 @@ public class RapunzelLevel extends Level{
 			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 		}
+		public boolean extraEndConditionsMet() {
+			return (spawnerLeft.hasEmptySpawnQueue()&&spawnerRight.hasEmptySpawnQueue()&&spawnerRapunzel.hasEmptySpawnQueue());
+		}
 	}
 
 	class Wave5 extends Wave{
 		
 		public Wave5(Level level) {
-			super(level);
+			super(level,10);
 		}
 
 		public void onStart(){
@@ -119,6 +131,10 @@ public class RapunzelLevel extends Level{
 			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerRapunzel.addToSpawnQueue(new Rapunzel(game,new Point2D.Double(0, 0)));
+		}
+		
+		public boolean extraEndConditionsMet() {
+			return (spawnerLeft.hasEmptySpawnQueue()&&spawnerRight.hasEmptySpawnQueue()&&spawnerRapunzel.hasEmptySpawnQueue());
 		}
 		
 	}

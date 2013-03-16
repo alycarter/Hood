@@ -42,9 +42,6 @@ public class Level extends Thread{
 				onLoad();
 				cursor = new Cursor(game);
 				camera = new Camera(game);
-				if(waves.size()>0){
-					waves.get(0).startWave();
-				}
 				loaded=true;
 			}
 		}.start();
@@ -61,9 +58,7 @@ public class Level extends Thread{
 	
 	public void nextWave(){
 		waves.remove(0);
-		if(waves.size()>0){
-			waves.get(0).startWave();
-		}else{
+		if(waves.size()==0){
 			game.gameOverMenu.showMenu();
 		}
 	}
