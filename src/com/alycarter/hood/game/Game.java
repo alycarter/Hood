@@ -79,12 +79,22 @@ public class Game extends Canvas implements Runnable{
 		long ns =  1000000000;
 		running= true;
 		while (running){
-			start = System.nanoTime();
-			update();
-			render();
-			end = System.nanoTime();
-			timeTaken = end - start;
-			deltaTime = (double)timeTaken/(double)ns;
+			if(frame.isFocused()){
+				start = System.nanoTime();
+				update();
+				render();
+				end = System.nanoTime();
+				timeTaken = end - start;
+				deltaTime = (double)timeTaken/(double)ns;
+			}else{
+				if(level.loaded){
+					pauseMenu.showMenu();
+				}
+				controls.clearControls();
+				try {
+					Thread.sleep(2);
+				} catch (InterruptedException e) {e.printStackTrace();}
+			}
 		}
 	}
 

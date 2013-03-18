@@ -56,6 +56,21 @@ public class Controls implements KeyListener, MouseListener{
 		rightClickedTemp=false;
 		rightDown=rightDownTemp;
 	}
+	
+	public void clearControls(){
+		keysPressed.clear();
+		keysTyped.clear();
+		tempKeysPressed.clear();
+		tempKeysTyped.clear();
+		leftDown =false;
+		leftClicked = false;
+		leftDownTemp =false;
+		leftClickedTemp = false;
+		rightDown =false;
+		rightClicked = false;
+		rightDownTemp =false;
+		rightClickedTemp = false;	
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
