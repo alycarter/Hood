@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import com.alycarter.hood.game.Game;
+import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.entity.Entity;
 import com.alycarter.hood.game.level.entity.particle.Particle;
 import com.alycarter.hood.game.level.entity.particle.Pickup;
@@ -218,8 +219,9 @@ public class EnemyArcher extends Mob{
 }
 
 class ArcherAnimation extends AnimationLayer{
+	private static TextureTileLoader bow= new TextureTileLoader("bow.png", 128);
 	
 	public ArcherAnimation(Game game){
-		addAnimation(new Animation(game,"bow","bow.png",128,1),true);
+		addAnimation(new Animation(game,"bow",bow,1),true);
 	}
 }

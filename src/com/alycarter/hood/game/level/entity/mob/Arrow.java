@@ -3,6 +3,7 @@ package com.alycarter.hood.game.level.entity.mob;
 import java.awt.geom.Point2D;
 
 import com.alycarter.hood.game.Game;
+import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.entity.Entity;
 import com.alycarter.hood.game.level.entity.particle.Particle;
 import com.alycarter.hood.game.level.entity.sprite.Animation;
@@ -58,16 +59,18 @@ public class Arrow extends Entity{
 }
 
 class ArrowAnimation extends AnimationLayer{
+	private static TextureTileLoader arrow= new TextureTileLoader("arrow.png", 16);
 	
 	public ArrowAnimation(Game game){
-		addAnimation(new Animation(game,"arrow","arrow.png",16,1),true);
+		addAnimation(new Animation(game,"arrow",arrow,1),true);
 	}
 }
 
 class ParticleAnimation extends AnimationLayer{
+	private static TextureTileLoader dust= new TextureTileLoader("dust.png", 16);
 	
 	public ParticleAnimation(Game game){
-		addAnimation(new Animation(game,"dust","dust.png",16,1),true);
+		addAnimation(new Animation(game,"dust",dust,1),true);
 	}
 }
 

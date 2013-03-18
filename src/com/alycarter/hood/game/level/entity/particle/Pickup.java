@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.Sound;
+import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
 
@@ -52,15 +53,17 @@ public class Pickup extends Particle{
 }
 
 class ParticleAnimation extends AnimationLayer{
+	private static TextureTileLoader sparkle= new TextureTileLoader("sparkle.png", 8);
 	
 	public ParticleAnimation(Game game){
-		addAnimation(new Animation(game,"sparkle","sparkle.png",8,1),true);
+		addAnimation(new Animation(game,"sparkle",sparkle,1),true);
 	}
 }
 
 class CogAnimation extends AnimationLayer{
+	private static TextureTileLoader cog= new TextureTileLoader("cog.png", 16);
 	
 	public CogAnimation(Game game){
-		addAnimation(new Animation(game,"cog","cog.png",16,1),true);
+		addAnimation(new Animation(game,"cog",cog,1),true);
 	}
 }

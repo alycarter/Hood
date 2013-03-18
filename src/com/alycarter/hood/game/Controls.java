@@ -35,8 +35,8 @@ public class Controls implements KeyListener, MouseListener{
 	}
 	
 	public void update(){
-		double lx=game.getLocationOnScreen().getX();//+(game.getWidth()/2);
-		double ly=game.getLocationOnScreen().getY();//+(game.getHeight()/2);
+		double lx=game.getLocationOnScreen().getX();
+		double ly=game.getLocationOnScreen().getY();
 		
 		mouseLocation = new Point((int)(MouseInfo.getPointerInfo().getLocation().getX()-lx),(int)( MouseInfo.getPointerInfo().getLocation().getY()-ly));
 		

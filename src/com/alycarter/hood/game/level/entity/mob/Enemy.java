@@ -60,7 +60,7 @@ public class Enemy extends Mob{
 		}
 	}
 	
-	public void findPath(){
+	public void findPath(){	
 		class Node{
 			Node parent;
 			int x;

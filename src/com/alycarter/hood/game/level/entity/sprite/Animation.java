@@ -23,6 +23,14 @@ public class Animation {
 		this.name=name;
 	}
 	
+	public Animation(Game game, String name,TextureTileLoader spriteSheet, int frames) {
+		for(int i=0;i<frames;i++){
+			this.frames.add(spriteSheet.getTile(i));
+		}
+		this.game=game;
+		this.name=name;
+	}
+	
 	public void update(){
 		currentFramePointer += game.getDeltaTime();
 		if(currentFramePointer>=frames.size()){

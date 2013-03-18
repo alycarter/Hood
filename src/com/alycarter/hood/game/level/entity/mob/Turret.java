@@ -3,6 +3,7 @@ package com.alycarter.hood.game.level.entity.mob;
 import java.awt.geom.Point2D;
 
 import com.alycarter.hood.game.Game;
+import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.entity.Entity;
 import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
@@ -52,8 +53,9 @@ public class Turret extends Mob{
 }
 
 class TurretAnimation extends AnimationLayer{
+	private static TextureTileLoader turret= new TextureTileLoader("turret.png",128);
 	
 	public TurretAnimation(Game game){
-		addAnimation(new Animation(game,"turret","turret.png",128,1),true);
+		addAnimation(new Animation(game,"turret",turret,1),true);
 	}
 }

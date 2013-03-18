@@ -3,6 +3,7 @@ package com.alycarter.hood.game.level.entity;
 import java.awt.geom.Point2D;
 
 import com.alycarter.hood.game.Game;
+import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.entity.particle.Particle;
 import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
@@ -52,17 +53,21 @@ public class Cursor extends Entity{
 }
 
 class CursorAnimation extends AnimationLayer{
+	private static TextureTileLoader target= new TextureTileLoader("target.png", 16);
+	private static TextureTileLoader turret= new TextureTileLoader("turret.png", 128);
+	private static TextureTileLoader cross= new TextureTileLoader("cross.png", 16);
 	
 	public CursorAnimation(Game game){
-		addAnimation(new Animation(game,"target","target.png",16,1),true);
-		addAnimation(new Animation(game,"turret","turret.png",128,1),true);
-		addAnimation(new Animation(game,"cross","cross.png",16,1),true);
+		addAnimation(new Animation(game,"target",target,1),true);
+		addAnimation(new Animation(game,"turret",turret,1),true);
+		addAnimation(new Animation(game,"cross",cross,1),true);
 	}
 }
 
 class ParticleAnimation extends AnimationLayer{
+	private static TextureTileLoader sparkle= new TextureTileLoader("sparkle.png", 8);
 	
 	public ParticleAnimation(Game game){
-		addAnimation(new Animation(game,"sparkle","sparkle.png",8,1),true);
+		addAnimation(new Animation(game,"sparkle", sparkle,1),true);
 	}
 }
