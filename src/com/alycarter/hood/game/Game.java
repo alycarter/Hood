@@ -3,6 +3,8 @@ package com.alycarter.hood.game;
 import java.awt.Canvas;
 import java.awt.Cursor;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -15,6 +17,7 @@ import javax.swing.JFrame;
 
 import com.alycarter.hood.game.level.Level;
 import com.alycarter.hood.game.level.RapunzelLevel;
+import com.alycarter.hood.game.level.map.tile.Tile;
 import com.alycarter.hood.game.menu.GameOverMenu;
 import com.alycarter.hood.game.menu.MainMenu;
 import com.alycarter.hood.game.menu.PauseMenu;
@@ -23,8 +26,9 @@ public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = 1L;
 	
-	public final int WIDTH = 1280;
-	public final int HEIGHT = (WIDTH/16)*9;
+	public int windowWidth;
+	public int windowHeight;
+	private double tileWide = 8;
 	public final String NAME = "Hood";
 	
 	public MainMenu mainMenu;
@@ -34,6 +38,7 @@ public class Game extends Canvas implements Runnable{
 	private Thread gameThread = new Thread(this);
 	
 	private JFrame frame;
+	private GraphicsDevice gd;
 	
 	private boolean running;
 	private double deltaTime=0;
@@ -54,14 +59,20 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void intit() {
-		frame.setSize(WIDTH, HEIGHT);
+		gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		windowWidth = gd.getDisplayMode().getWidth();
+		windowHeight = gd.getDisplayMode().getHeight();
+		Tile.tileResolution= (int) ((double)windowWidth/tileWide);
+		frame.setSize(windowWidth, windowHeight);
 		frame.setTitle(NAME);
+		frame.setUndecorated(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(this);
-		setSize(WIDTH,HEIGHT);
+		setSize(windowWidth,windowHeight);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setVisible(true);
+		gd.setFullScreenWindow(frame);
 		this.addKeyListener(controls);
 		this.addMouseListener(controls);
 		mainMenu=new MainMenu(this);
@@ -69,6 +80,7 @@ public class Game extends Canvas implements Runnable{
 		gameOverMenu = new GameOverMenu(this);
 		mainMenu.showMenu();
 		level = new RapunzelLevel(this);
+		System.out.println(Tile.tileResolution);
 	}
 
 	@Override
@@ -96,6 +108,7 @@ public class Game extends Canvas implements Runnable{
 				} catch (InterruptedException e) {e.printStackTrace();}
 			}
 		}
+		gd.setFullScreenWindow(null);
 	}
 
 	private void render() {
@@ -104,7 +117,7 @@ public class Game extends Canvas implements Runnable{
 			createBufferStrategy(3);
 		}else{
 			Graphics2D g = (Graphics2D)bs.getDrawGraphics();
-			g.clearRect(0, 0, WIDTH, HEIGHT);
+			g.clearRect(0, 0, windowWidth, windowHeight);
 			if(mainMenu.isShown()){
 				mainMenu.render(g);
 			}else{

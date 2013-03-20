@@ -22,8 +22,8 @@ public class Cursor extends Entity{
 	public void onUpdate(){
 		double x;
 		double y;
-		x = ((getGame().WIDTH/2)-getGame().controls.mouseLocation.getX())/Tile.TILERESOLUTION;
-		y = ((getGame().HEIGHT/2)-getGame().controls.mouseLocation.getY())/Tile.TILERESOLUTION;
+		x = ((getGame().windowWidth/2)-getGame().controls.mouseLocation.getX())/Tile.tileResolution;
+		y = ((getGame().windowHeight/2)-getGame().controls.mouseLocation.getY())/Tile.tileResolution;
 		x = (x-getGame().getLevel().camera.getLocation().getX())*-1;
 		y = (y-getGame().getLevel().camera.getLocation().getY())*-1;
 		if(x<0||y<0||x>getGame().getLevel().getMap().getMapWidth()||y>getGame().getLevel().getMap().getMapHeight()){

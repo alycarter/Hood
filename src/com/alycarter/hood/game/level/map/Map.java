@@ -36,13 +36,13 @@ public class Map {
 				}
 			}	
 			r.readLine();
-			mapTexture = new BufferedImage(mapWidth*Tile.TILERESOLUTION,mapHeight*Tile.TILERESOLUTION,BufferedImage.TYPE_INT_ARGB);
+			mapTexture = new BufferedImage(mapWidth*Tile.tileResolution,mapHeight*Tile.tileResolution,BufferedImage.TYPE_INT_ARGB);
 			Graphics g = mapTexture.getGraphics();
-			TextureTileLoader tileMap = new TextureTileLoader("mapTiles.png",Tile.TILERESOLUTION);
+			TextureTileLoader tileMap = new TextureTileLoader("mapTiles.png",128);
 			for (xt=0;xt<mapWidth;xt++){
 				for (yt=0;yt<mapHeight;yt++){
 					try{
-						g.drawImage(tileMap.getTile(Integer.valueOf(r.readLine())),xt*Tile.TILERESOLUTION, yt*Tile.TILERESOLUTION,Tile.TILERESOLUTION, Tile.TILERESOLUTION, null);
+						g.drawImage(tileMap.getTile(Integer.valueOf(r.readLine())),xt*Tile.tileResolution, yt*Tile.tileResolution,Tile.tileResolution, Tile.tileResolution, null);
 					}catch(Exception e){e.printStackTrace();}
 				}
 			}	

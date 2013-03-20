@@ -82,14 +82,14 @@ public class Level extends Thread{
 	}
 	
 	public void render(Graphics2D g){
-		g.drawImage(getMap().mapTexture, (int)(game.WIDTH/2-(camera.getLocation().getX()*Tile.TILERESOLUTION)),(int)(game.HEIGHT/2-(camera.getLocation().getY()*Tile.TILERESOLUTION)), null);
+		g.drawImage(getMap().mapTexture, (int)(game.windowWidth/2-(camera.getLocation().getX()*Tile.tileResolution)),(int)(game.windowHeight/2-(camera.getLocation().getY()*Tile.tileResolution)), null);
 		drawEntity(cursor, g);
 		for (int e = 0;e<entities.size();e++){
 			if(! entities.get(e).isRemoved()){
 				drawEntity(entities.get(e),g);
 			}
 		}
-		g.drawString(String.valueOf(towerPoints), game.WIDTH/2, 20);
+		g.drawString(String.valueOf(towerPoints), game.windowWidth/2, 20);
 		if(game.debugMode){
 			g.drawString("fps: "+(1/game.getDeltaTime()), 10, 20);
 			g.drawString("entities in list: "+entities.size(), 10, 40);
@@ -100,23 +100,23 @@ public class Level extends Thread{
 	
 	private void drawEntity(Entity e, Graphics2D g){
 		g.setColor(Color.BLACK);
-		int screenX=(int) (game.WIDTH/2-((camera.getLocation().getX()-e.getLocation().getX())*Tile.TILERESOLUTION));
-		int screenY=(int) (game.HEIGHT/2-((camera.getLocation().getY()-e.getLocation().getY())*Tile.TILERESOLUTION));
-		g.drawImage(e.getImage(),screenX-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2),screenY-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2),(int) (Tile.TILERESOLUTION*e.getImageWidth()),(int)(Tile.TILERESOLUTION*e.getImageWidth()),null);
+		int screenX=(int) (game.windowWidth/2-((camera.getLocation().getX()-e.getLocation().getX())*Tile.tileResolution));
+		int screenY=(int) (game.windowHeight/2-((camera.getLocation().getY()-e.getLocation().getY())*Tile.tileResolution));
+		g.drawImage(e.getImage(),screenX-(int)((Tile.tileResolution*e.getImageWidth())/2),screenY-(int)((Tile.tileResolution*e.getImageWidth())/2),(int) (Tile.tileResolution*e.getImageWidth()),(int)(Tile.tileResolution*e.getImageWidth()),null);
 		if(e.shouldRenderHealthBar()){
 			g.setColor(Color.RED);
-			g.fillRect(screenX-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2), screenY-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2),(int)( Tile.TILERESOLUTION*e.getImageWidth()),(int)( Tile.TILERESOLUTION/15*e.getImageWidth()));
+			g.fillRect(screenX-(int)((Tile.tileResolution*e.getImageWidth())/2), screenY-(int)((Tile.tileResolution*e.getImageWidth())/2),(int)( Tile.tileResolution*e.getImageWidth()),(int)( Tile.tileResolution/15*e.getImageWidth()));
 			double healthPercent = e.getHealth()/e.getMaxHealth();
 			g.setColor(Color.GREEN);
-			g.fillRect(screenX-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2), screenY-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2), (int)(Tile.TILERESOLUTION*healthPercent*e.getImageWidth()),(int)( Tile.TILERESOLUTION/15*e.getImageWidth()));
+			g.fillRect(screenX-(int)((Tile.tileResolution*e.getImageWidth())/2), screenY-(int)((Tile.tileResolution*e.getImageWidth())/2), (int)(Tile.tileResolution*healthPercent*e.getImageWidth()),(int)( Tile.tileResolution/15*e.getImageWidth()));
 			g.setColor(Color.BLACK);
-			g.drawRect(screenX-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2), screenY-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2),(int)( Tile.TILERESOLUTION*e.getImageWidth()),(int)( Tile.TILERESOLUTION/15*e.getImageWidth()));
+			g.drawRect(screenX-(int)((Tile.tileResolution*e.getImageWidth())/2), screenY-(int)((Tile.tileResolution*e.getImageWidth())/2),(int)( Tile.tileResolution*e.getImageWidth()),(int)( Tile.tileResolution/15*e.getImageWidth()));
 		}
 		if(game.debugMode){
 			g.fillRect(screenX,screenY,1,1);
-			g.drawOval(screenX-(int)((Tile.TILERESOLUTION*e.getHitBoxWidth())/2), screenY-(int)((Tile.TILERESOLUTION*e.getHitBoxWidth())/2),(int) (Tile.TILERESOLUTION*e.getHitBoxWidth()),(int)(Tile.TILERESOLUTION*e.getHitBoxWidth()));
-			g.drawOval(screenX-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2), screenY-(int)((Tile.TILERESOLUTION*e.getImageWidth())/2),(int) (Tile.TILERESOLUTION*e.getImageWidth()),(int)(Tile.TILERESOLUTION*e.getImageWidth()));
-			g.drawLine(screenX, screenY, screenX+(int)(e.getDirectionAsVector().getX()*Tile.TILERESOLUTION*e.getHitBoxWidth()), screenY+(int)(e.getDirectionAsVector().getY()*Tile.TILERESOLUTION*e.getHitBoxWidth()));
+			g.drawOval(screenX-(int)((Tile.tileResolution*e.getHitBoxWidth())/2), screenY-(int)((Tile.tileResolution*e.getHitBoxWidth())/2),(int) (Tile.tileResolution*e.getHitBoxWidth()),(int)(Tile.tileResolution*e.getHitBoxWidth()));
+			g.drawOval(screenX-(int)((Tile.tileResolution*e.getImageWidth())/2), screenY-(int)((Tile.tileResolution*e.getImageWidth())/2),(int) (Tile.tileResolution*e.getImageWidth()),(int)(Tile.tileResolution*e.getImageWidth()));
+			g.drawLine(screenX, screenY, screenX+(int)(e.getDirectionAsVector().getX()*Tile.tileResolution*e.getHitBoxWidth()), screenY+(int)(e.getDirectionAsVector().getY()*Tile.tileResolution*e.getHitBoxWidth()));
 		}
 	}
 	
