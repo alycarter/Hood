@@ -12,6 +12,12 @@ public class MainMenu extends Menu{
 				hideMenu();
 			}
 		});
+		addButton(new Button(game,10,50,100,25){
+			public void onClick(){
+				game.endGame();
+				hideMenu();
+			}
+		});
 	}
 	
 	

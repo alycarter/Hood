@@ -8,6 +8,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -80,7 +81,6 @@ public class Game extends Canvas implements Runnable{
 		gameOverMenu = new GameOverMenu(this);
 		mainMenu.showMenu();
 		level = new RapunzelLevel(this);
-		System.out.println(Tile.tileResolution);
 	}
 
 	@Override
@@ -109,6 +109,7 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		gd.setFullScreenWindow(null);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(new WindowEvent(frame,WindowEvent.WINDOW_CLOSING));
 	}
 
 	private void render() {
@@ -194,5 +195,9 @@ public class Game extends Canvas implements Runnable{
 			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(16, 16), "cursor");
 			frame.getContentPane().setCursor(cursor);
 		} catch (IOException e) {e.printStackTrace();}
+	}
+	
+	public void endGame(){
+		running=false;
 	}
 }

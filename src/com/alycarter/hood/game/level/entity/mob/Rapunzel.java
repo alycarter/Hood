@@ -19,6 +19,7 @@ public class Rapunzel extends Mob{
 	public Rapunzel(Game game, Point2D.Double location) {
 		super(game, Entity.TYPE_ENEMY, location,20, 0, 1.5, 0.5);
 		sprite.addAnimationLayer(new RapunzelAnimation(game));
+		showShadow();
 	}
 	
 	public void onUpdate(){

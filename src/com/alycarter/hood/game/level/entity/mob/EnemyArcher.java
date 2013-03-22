@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.entity.Entity;
-import com.alycarter.hood.game.level.entity.particle.Particle;
 import com.alycarter.hood.game.level.entity.particle.Pickup;
 import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
@@ -24,6 +23,7 @@ public class EnemyArcher extends Mob{
 	public EnemyArcher(Game game ,Point2D.Double location) {
 		super(game,Entity.TYPE_ENEMY,location,2.5,0,1.5,0.5);
 		sprite.addAnimationLayer(new ArcherAnimation(game));
+		showShadow();
 	}
 	
 	public void onUpdate() {
@@ -191,9 +191,9 @@ public class EnemyArcher extends Mob{
 		if (end.parent!=null){
 			Node parent = end;
 			while(parent!=null){
-				if(getGame().debugMode){
-					getGame().getLevel().entities.add(new Particle(getGame(), new Point2D.Double(parent.x+0.5, parent.y+0.5), 0.1, 0.1, 0, 0));
-				}
+//				if(getGame().debugMode){
+//					getGame().getLevel().entities.add(new Particle(getGame(), new Point2D.Double(parent.x+0.5, parent.y+0.5), 0.1, 0.1, 0, 0));
+//				}
 				if(parent.parent==start){
 					targetTile= new Point2D.Double(parent.x+0.5, parent.y+0.5);
 				}

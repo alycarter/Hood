@@ -24,6 +24,7 @@ public class Entity {
 	private boolean removed = false;
 	public Sprite sprite = new Sprite();
 	public final int entityType;
+	private boolean shadows = false;
 	
 	public static final int TYPE_PLAYER = 0;
 	public static final int TYPE_PARTICLE = 1;
@@ -80,6 +81,18 @@ public class Entity {
 		y+=this.getLocation().getY();
 		this.moveToLocation(x, y);
 		
+	}
+	
+	public void showShadow(){
+		shadows=true;
+	}
+	
+	public void hideShadow(){
+		shadows=false;
+	}
+	
+	public boolean shouldShowShadows(){
+		return shadows;
 	}
 	
 	public void moveToLocation(double x, double y){

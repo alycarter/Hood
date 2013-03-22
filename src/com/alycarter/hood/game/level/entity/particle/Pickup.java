@@ -3,7 +3,6 @@ package com.alycarter.hood.game.level.entity.particle;
 import java.awt.geom.Point2D;
 
 import com.alycarter.hood.game.Game;
-import com.alycarter.hood.game.Sound;
 import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
@@ -30,7 +29,7 @@ public class Pickup extends Particle{
 		}
 		if(distanceTo(getGame().getLevel().player)<getGame().getLevel().player.getHitBoxWidth()/2){
 			getGame().getLevel().towerPoints++;
-			Sound.pickup.play();
+			//Sound.pickup.play();
 			markRemoved();
 			for(int i=0; i<10;i++){
 				Particle p = new Particle(getGame(),getGame().getLevel().player.getLocation(),0.15,0.5,Math.random()*360,1);

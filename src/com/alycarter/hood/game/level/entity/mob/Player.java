@@ -25,6 +25,7 @@ public class Player extends Mob{
 		//hideHealthBar();
 		sprite.addAnimationLayer(new PlayerAnimation(game));
 		faceDirection=getDirectionAsAngle();
+		showShadow();
 	}
 	
 	public void onUpdate(){

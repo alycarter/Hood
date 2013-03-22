@@ -8,8 +8,8 @@ public class GameOverMenu extends Menu{
 		super(game);
 		addButton(new Button(game,10,10,100,100){
 			public void onClick(){
-				game.mainMenu.showMenu();
 				game.gameOverMenu.hideMenu();
+				game.mainMenu.showMenu();
 			}
 		});
 		addButton(new Button(game,10,120,100,100){

@@ -6,6 +6,7 @@ public class Wave {
 	public Level level;
 	private double delay;
 	private boolean delayEnd = false;
+	private boolean loaded = false;
 	
 	public Wave(Level level,double waveDelay) {
 		this.level=level;
@@ -20,7 +21,12 @@ public class Wave {
 		delay-=level.game.getDeltaTime();
 		if(delay<0){	
 			if(!delayEnd){
-				onStart();
+				new Thread(){
+					public void run() {
+						onStart();
+						loaded=true;
+					}
+				}.start();
 			}
 			delayEnd=true;
 			boolean enemiesLeft=false;
@@ -29,7 +35,7 @@ public class Wave {
 					enemiesLeft=true;
 				}
 			}
-			if(!enemiesLeft && extraEndConditionsMet()){
+			if(loaded && !enemiesLeft && extraEndConditionsMet()){
 				endWave();
 			}
 		}
