@@ -43,6 +43,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private boolean running;
 	private double deltaTime=0;
+	private int fps = 0;
+	private int ups = 0;
 	
 	private Level level;
 	
@@ -88,15 +90,33 @@ public class Game extends Canvas implements Runnable{
 		long start;
 		long end;
 		long timeTaken;
+		long timeSinceRender=0;
 		long ns =  1000000000;
+		int fps=0;
+		int ups = 0;
+		long second=0;
 		running= true;
 		while (running){
 			if(frame.isFocused()){
 				start = System.nanoTime();
 				update();
-				render();
+				ups++;
+				if((double)timeSinceRender/(double)ns>1.0/65.0){
+					render();
+					timeSinceRender=0;
+					fps++;
+				}
 				end = System.nanoTime();
 				timeTaken = end - start;
+				second+=timeTaken;
+				if(second>ns){
+					this.fps=fps;
+					this.ups=ups;
+					fps=0;
+					ups=0;
+					second =0;
+				}
+				timeSinceRender+=timeTaken;
 				deltaTime = (double)timeTaken/(double)ns;
 			}else{
 				if(level.loaded){
@@ -199,5 +219,12 @@ public class Game extends Canvas implements Runnable{
 	
 	public void endGame(){
 		running=false;
+	}
+	
+	public int getFps(){
+		return fps;
+	}
+	public int getUps(){
+		return ups;
 	}
 }

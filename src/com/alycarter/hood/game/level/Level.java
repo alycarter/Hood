@@ -92,10 +92,11 @@ public class Level extends Thread{
 		g.setColor(Color.BLACK);
 		g.drawString(String.valueOf(towerPoints), game.windowWidth/2, 20);
 		if(game.debugMode){
-			g.drawString("fps: "+(1/game.getDeltaTime()), 10, 20);
-			g.drawString("entities in list: "+entities.size(), 10, 40);
-			g.drawString("player x:"+player.getLocation().getX(), 10, 60);
-			g.drawString("player y:"+player.getLocation().getY(), 10, 80);
+			g.drawString("fps: "+String.valueOf(game.getFps()), 10, 20);
+			g.drawString("ups: "+String.valueOf(game.getUps()), 10, 40);
+			g.drawString("entities in list: "+entities.size(), 10, 60);
+			g.drawString("player x:"+player.getLocation().getX(), 10, 80);
+			g.drawString("player y:"+player.getLocation().getY(), 10, 100);
 		}
 	}
 	
