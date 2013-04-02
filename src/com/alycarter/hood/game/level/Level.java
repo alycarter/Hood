@@ -103,9 +103,9 @@ public class Level extends Thread{
 		int screenX=(int) (game.windowWidth/2-((camera.getLocation().getX()-e.getLocation().getX())*Tile.tileResolution));
 		int screenY=(int) (game.windowHeight/2-((camera.getLocation().getY()-e.getLocation().getY())*Tile.tileResolution));
 		g.setColor(new Color(0f,0f,0f,0.5f));
-		if(e.shouldShowShadows()){
-			g.fillOval((int)(screenX-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(screenY-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(Tile.tileResolution*e.getHitBoxWidth()), (int)(Tile.tileResolution*e.getHitBoxWidth()));
-		}
+//		if(e.shouldShowShadows()){
+//			g.fillOval((int)(screenX-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(screenY-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(Tile.tileResolution*e.getHitBoxWidth()), (int)(Tile.tileResolution*e.getHitBoxWidth()));
+//		}
 		g.drawImage(e.getImage(),screenX-(int)((Tile.tileResolution*e.getImageWidth())/2),screenY-(int)((Tile.tileResolution*e.getImageWidth())/2),(int) (Tile.tileResolution*e.getImageWidth()),(int)(Tile.tileResolution*e.getImageWidth()),null);
 		if(e.shouldRenderHealthBar()){
 			g.setColor(Color.RED);

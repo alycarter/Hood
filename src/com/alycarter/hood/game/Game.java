@@ -183,7 +183,7 @@ public class Game extends Canvas implements Runnable{
 		try {
 			BufferedImage c;
 			c = ImageIO.read(Game.class.getResourceAsStream("/cross.png"));
-			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(16, 16), "cursor");
+			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(8, 8), "cursor");
 			frame.getContentPane().setCursor(cursor);
 		} catch (IOException e) {e.printStackTrace();}
 	}
@@ -192,7 +192,7 @@ public class Game extends Canvas implements Runnable{
 		try {
 			BufferedImage c;
 			c = ImageIO.read(Game.class.getResourceAsStream("/blank.png"));
-			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(16, 16), "cursor");
+			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(0, 0), "cursor");
 			frame.getContentPane().setCursor(cursor);
 		} catch (IOException e) {e.printStackTrace();}
 	}
