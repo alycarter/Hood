@@ -101,7 +101,7 @@ public class Game extends Canvas implements Runnable{
 				start = System.nanoTime();
 				update();
 				ups++;
-				if((double)timeSinceRender/(double)ns>1.0/65.0){
+				if((double)timeSinceRender/(double)ns>1.0/15.0){
 					render();
 					timeSinceRender=0;
 					fps++;
