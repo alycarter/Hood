@@ -45,6 +45,7 @@ public class Game extends Canvas implements Runnable{
 	private double deltaTime=0;
 	private int fps = 0;
 	private int ups = 0;
+	private int fpsLimit = 120;
 	
 	private Level level;
 	
@@ -101,13 +102,15 @@ public class Game extends Canvas implements Runnable{
 				start = System.nanoTime();
 				update();
 				ups++;
-				if((double)timeSinceRender/(double)ns>1.0/15.0){
+				if((double)timeSinceRender/(double)ns>1.0/(double)fpsLimit){
 					render();
 					timeSinceRender=0;
 					fps++;
 				}
 				end = System.nanoTime();
 				timeTaken = end - start;
+				timeSinceRender+=timeTaken;
+				deltaTime = (double)timeTaken/(double)ns;
 				second+=timeTaken;
 				if(second>ns){
 					this.fps=fps;
@@ -116,8 +119,6 @@ public class Game extends Canvas implements Runnable{
 					ups=0;
 					second =0;
 				}
-				timeSinceRender+=timeTaken;
-				deltaTime = (double)timeTaken/(double)ns;
 			}else{
 				if(level.loaded){
 					pauseMenu.showMenu();
@@ -203,7 +204,7 @@ public class Game extends Canvas implements Runnable{
 		try {
 			BufferedImage c;
 			c = ImageIO.read(Game.class.getResourceAsStream("/cross.png"));
-			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(8, 8), "cursor");
+			Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(c, new Point(16, 16), "cursor");
 			frame.getContentPane().setCursor(cursor);
 		} catch (IOException e) {e.printStackTrace();}
 	}

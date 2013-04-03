@@ -38,7 +38,7 @@ public class Map {
 			r.readLine();
 			mapTexture = new BufferedImage(mapWidth*Tile.tileResolution,mapHeight*Tile.tileResolution,BufferedImage.TYPE_INT_ARGB);
 			Graphics g = mapTexture.getGraphics();
-			TextureTileLoader tileMap = new TextureTileLoader("mapTiles.png",128);
+			TextureTileLoader tileMap = new TextureTileLoader("mapTiles.png",192);
 			for (xt=0;xt<mapWidth;xt++){
 				for (yt=0;yt<mapHeight;yt++){
 					try{

@@ -116,7 +116,7 @@ public class Player extends Mob{
 
 class PlayerAnimation extends AnimationLayer{
 	private static TextureTileLoader bow = new TextureTileLoader("bow.png", 128);
-	private static TextureTileLoader sword1 = new TextureTileLoader("sword.png", 128);
+	private static TextureTileLoader sword1 = new TextureTileLoader("sword.png", 288);
 	private static TextureTileLoader sword2 = new TextureTileLoader("sword2.png", 128);
 	
 	public PlayerAnimation(Game game){

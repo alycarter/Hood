@@ -2,6 +2,7 @@ package com.alycarter.hood.game.level;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import com.alycarter.hood.game.Game;
@@ -64,9 +65,18 @@ public class Level extends Thread{
 	}
 	
 	public void update(){
+		if(game.controls.isTyped(KeyEvent.VK_K)){
+			for(int e = 0; e<entities.size();e++){
+				if(entities.get(e).entityType==Entity.TYPE_ENEMY){
+					entities.remove(e);
+					e-=1;
+				}
+			}
+		}
 		for(int e = 0; e<entities.size();e++){
 			if(entities.get(e).isRemoved()){
 				entities.remove(e);
+				e-=1;
 			}
 		}
 		cursor.update();
@@ -79,6 +89,7 @@ public class Level extends Thread{
 		if(waves.size()>0){
 			waves.get(0).update();
 		}
+		
 	}
 	
 	public void render(Graphics2D g){
@@ -103,7 +114,7 @@ public class Level extends Thread{
 	private void drawEntity(Entity e, Graphics2D g){
 		int screenX=(int) (game.windowWidth/2-((camera.getLocation().getX()-e.getLocation().getX())*Tile.tileResolution));
 		int screenY=(int) (game.windowHeight/2-((camera.getLocation().getY()-e.getLocation().getY())*Tile.tileResolution));
-		g.setColor(new Color(0f,0f,0f,0.5f));
+		g.setColor(new Color(0f,0f,0f,0.4f));
 //		if(e.shouldShowShadows()){
 //			g.fillOval((int)(screenX-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(screenY-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(Tile.tileResolution*e.getHitBoxWidth()), (int)(Tile.tileResolution*e.getHitBoxWidth()));
 //		}

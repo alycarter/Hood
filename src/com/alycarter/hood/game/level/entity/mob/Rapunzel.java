@@ -29,7 +29,7 @@ public class Rapunzel extends Mob{
 		sprite.getAnimationLayer(0).setDirection(getDirectionAsAngle());
 		if(burstCoolDown<0){
 			if(burstTime<burstDuration){
-				if(hairDelay<0){
+				if(hairDelay<0||getGame().getDeltaTime()>(0.25/4)){
 					Hair h=new Hair(getGame(),getLocation(),getDirectionAsAngle(),4,4,this,lastHairStrand);
 					getGame().getLevel().entities.add(h);
 					lastHairStrand=h;
