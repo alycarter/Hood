@@ -5,11 +5,12 @@ import java.awt.image.AffineTransformOp;
 import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
 
+
 public class SettingsMenu extends Menu {
 
 	public SettingsMenu(Game game) {
 		super(game);
-		addButton(new Button(game,"back",10,10,100,25){
+		addButton(new Button(game,"back",game.getWidth()/3,game.getHeight()/3,game.getWidth()/3,25){
 			public void onClick(){
 				hideMenu();
 				if(game.mainMenu.isShown()){
@@ -19,7 +20,7 @@ public class SettingsMenu extends Menu {
 				}
 			}
 		});
-		addButton(new Button(game,String.valueOf("fps limit: "+game.getFpsLimit()),10,50,100,25){
+		addButton(new Button(game,String.valueOf("fps limit: "+game.getFpsLimit()),game.getWidth()/3,50+game.getHeight()/3,game.getWidth()/3,25){
 			public void onClick(){
 				switch(game.getFpsLimit()){
 					case 120:{
@@ -46,27 +47,31 @@ public class SettingsMenu extends Menu {
 				name=String.valueOf("fps limit: "+game.getFpsLimit());
 			}
 		});
-		addButton(new Button(game,String.valueOf("blend mode: "+AnimationLayer.transformMode),10,90,100,25){
+		addButton(new Button(game,String.valueOf("blend mode: "+AnimationLayer.transformMode+" (default)"),game.getWidth()/3,100+game.getHeight()/3,game.getWidth()/3,25){
 			public void onClick(){
 				switch(AnimationLayer.transformMode){
 					case AffineTransformOp.TYPE_BICUBIC:{
 						AnimationLayer.transformMode=AffineTransformOp.TYPE_BILINEAR;
+						name=String.valueOf("blend mode: "+AnimationLayer.transformMode+" (default)");
 						break;
 					}
 					case AffineTransformOp.TYPE_BILINEAR:{
 						AnimationLayer.transformMode=AffineTransformOp.TYPE_NEAREST_NEIGHBOR;
+						name=String.valueOf("blend mode: "+AnimationLayer.transformMode+" (worst)");
 						break;
 					}
 					case AffineTransformOp.TYPE_NEAREST_NEIGHBOR:{
 						AnimationLayer.transformMode=AffineTransformOp.TYPE_BICUBIC;
+						name=String.valueOf("blend mode: "+AnimationLayer.transformMode+" (best)");
 						break;
 					}
 					default:{
 						AnimationLayer.transformMode=AffineTransformOp.TYPE_BILINEAR;
+						name=String.valueOf("blend mode: "+AnimationLayer.transformMode+" (default)");
 						break;
 					}
 				}
-				name=String.valueOf("blend mode: "+AnimationLayer.transformMode);
+				
 			}
 		});
 	}

@@ -1,6 +1,7 @@
 package com.alycarter.hood.game.menu;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -28,9 +29,11 @@ public class Menu {
 		g.setColor(Color.BLACK);
 		for (int i=0;i<buttons.size();i++){
 			Button b = buttons.get(i);
+			int size = (int) (b.rectangle.getHeight()-2);
+			g.setFont(new Font(Font.SANS_SERIF,Font.BOLD,size));
 			g.clearRect((int)b.rectangle.getX(),(int) b.rectangle.getY(),(int) b.rectangle.getWidth(), (int)b.rectangle.getHeight());
 			g.drawRect((int)b.rectangle.getX(),(int) b.rectangle.getY(),(int) b.rectangle.getWidth(), (int)b.rectangle.getHeight());
-			g.drawString(b.name,(int)( b.rectangle.getX()+3), (int)(b.rectangle.getY()+(b.rectangle.getHeight()/2)));
+			g.drawString(b.name,(int)( b.rectangle.getX()+(b.rectangle.width/2)-((size*b.name.length())/4)), (int)(b.rectangle.getY())+size-2);
 		}
 	}
 	

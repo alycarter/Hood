@@ -37,6 +37,7 @@ public class Level extends Thread{
 		loaded=false;
 		new Thread(){
 			public void run(){
+				towerPoints =0;
 				map=new Map();
 				entities=new ArrayList<Entity>();
 				waves= new ArrayList<Wave>();
@@ -103,13 +104,13 @@ public class Level extends Thread{
 		g.setColor(Color.BLACK);
 		g.drawString(String.valueOf(towerPoints), game.windowWidth/2, 20);
 		if(game.debugMode){
-			g.clearRect(140, 0, 200, 150);
-			g.drawString("fps: "+String.valueOf(game.getFps()), 150, 20);
-			g.drawString("ups: "+String.valueOf(game.getUps()), 150, 40);
-			g.drawString("entities in list: "+entities.size(), 150, 60);
-			g.drawString("player x:"+player.getLocation().getX(), 150, 80);
-			g.drawString("player y:"+player.getLocation().getY(), 150, 100);
-			g.drawString("tile resolution: "+ Tile.tileResolution, 150, 120);
+			g.clearRect(0, 0, 200, 150);
+			g.drawString("fps: "+String.valueOf(game.getFps()), 10, 20);
+			g.drawString("ups: "+String.valueOf(game.getUps()), 10, 40);
+			g.drawString("entities in list: "+entities.size(), 10, 60);
+			g.drawString("player x:"+player.getLocation().getX(), 10, 80);
+			g.drawString("player y:"+player.getLocation().getY(), 10, 100);
+			g.drawString("tile resolution: "+ Tile.tileResolution, 10, 120);
 		}
 	}
 	
