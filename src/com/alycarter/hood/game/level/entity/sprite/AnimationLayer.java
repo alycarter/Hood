@@ -14,6 +14,8 @@ public class AnimationLayer {
 	
 	private ArrayList<Animation> animations = new ArrayList<Animation>();
 	
+	public static int transformMode = AffineTransformOp.TYPE_BILINEAR;
+	
 	public AnimationLayer() {
 		// TODO Auto-generated constructor stub
 	}
@@ -41,7 +43,7 @@ public class AnimationLayer {
 		double locationX = img.getWidth() / 2;
 		double locationY = img.getHeight() / 2;
 		AffineTransform tx = AffineTransform.getRotateInstance(rotation, locationX, locationY);
-		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+		AffineTransformOp op = new AffineTransformOp(tx, transformMode);
 
 		img.getGraphics().drawImage(op.filter(currentAnimation.getCurrentFrame(), null), 0, 0, null);
 		return img;

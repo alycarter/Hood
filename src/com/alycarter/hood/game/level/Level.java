@@ -103,30 +103,32 @@ public class Level extends Thread{
 		g.setColor(Color.BLACK);
 		g.drawString(String.valueOf(towerPoints), game.windowWidth/2, 20);
 		if(game.debugMode){
-			g.drawString("fps: "+String.valueOf(game.getFps()), 10, 20);
-			g.drawString("ups: "+String.valueOf(game.getUps()), 10, 40);
-			g.drawString("entities in list: "+entities.size(), 10, 60);
-			g.drawString("player x:"+player.getLocation().getX(), 10, 80);
-			g.drawString("player y:"+player.getLocation().getY(), 10, 100);
+			g.clearRect(140, 0, 200, 150);
+			g.drawString("fps: "+String.valueOf(game.getFps()), 150, 20);
+			g.drawString("ups: "+String.valueOf(game.getUps()), 150, 40);
+			g.drawString("entities in list: "+entities.size(), 150, 60);
+			g.drawString("player x:"+player.getLocation().getX(), 150, 80);
+			g.drawString("player y:"+player.getLocation().getY(), 150, 100);
+			g.drawString("tile resolution: "+ Tile.tileResolution, 150, 120);
 		}
 	}
 	
 	private void drawEntity(Entity e, Graphics2D g){
 		int screenX=(int) (game.windowWidth/2-((camera.getLocation().getX()-e.getLocation().getX())*Tile.tileResolution));
 		int screenY=(int) (game.windowHeight/2-((camera.getLocation().getY()-e.getLocation().getY())*Tile.tileResolution));
-		g.setColor(new Color(0f,0f,0f,0.4f));
-//		if(e.shouldShowShadows()){
-//			g.fillOval((int)(screenX-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(screenY-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(Tile.tileResolution*e.getHitBoxWidth()), (int)(Tile.tileResolution*e.getHitBoxWidth()));
-//		}
+		g.setColor(new Color(0f,0f,0f,0.5f));
+		if(e.shouldShowShadows()){
+			g.fillOval((int)(screenX-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(screenY-((Tile.tileResolution*e.getHitBoxWidth())/2)), (int)(Tile.tileResolution*e.getHitBoxWidth()), (int)(Tile.tileResolution*e.getHitBoxWidth()));
+		}
 		g.drawImage(e.getImage(),screenX-(int)((Tile.tileResolution*e.getImageWidth())/2),screenY-(int)((Tile.tileResolution*e.getImageWidth())/2),(int) (Tile.tileResolution*e.getImageWidth()),(int)(Tile.tileResolution*e.getImageWidth()),null);
 		if(e.shouldRenderHealthBar()){
 			g.setColor(Color.RED);
-			g.fillRect(screenX-(int)((Tile.tileResolution*e.getImageWidth())/2), screenY-(int)((Tile.tileResolution*e.getImageWidth())/2),(int)( Tile.tileResolution*e.getImageWidth()),(int)( Tile.tileResolution/15*e.getImageWidth()));
+			g.fillRect(screenX-(int)((Tile.tileResolution*e.getHitBoxWidth())/2), screenY-(int)((Tile.tileResolution*e.getHitBoxWidth())/2),(int)( Tile.tileResolution*e.getHitBoxWidth()),(int)( Tile.tileResolution/15*e.getHitBoxWidth()));
 			double healthPercent = e.getHealth()/e.getMaxHealth();
 			g.setColor(Color.GREEN);
-			g.fillRect(screenX-(int)((Tile.tileResolution*e.getImageWidth())/2), screenY-(int)((Tile.tileResolution*e.getImageWidth())/2), (int)(Tile.tileResolution*healthPercent*e.getImageWidth()),(int)( Tile.tileResolution/15*e.getImageWidth()));
+			g.fillRect(screenX-(int)((Tile.tileResolution*e.getHitBoxWidth())/2), screenY-(int)((Tile.tileResolution*e.getHitBoxWidth())/2), (int)(Tile.tileResolution*healthPercent*e.getHitBoxWidth()),(int)( Tile.tileResolution/15*e.getHitBoxWidth()));
 			g.setColor(Color.BLACK);
-			g.drawRect(screenX-(int)((Tile.tileResolution*e.getImageWidth())/2), screenY-(int)((Tile.tileResolution*e.getImageWidth())/2),(int)( Tile.tileResolution*e.getImageWidth()),(int)( Tile.tileResolution/15*e.getImageWidth()));
+			g.drawRect(screenX-(int)((Tile.tileResolution*e.getHitBoxWidth())/2), screenY-(int)((Tile.tileResolution*e.getHitBoxWidth())/2),(int)( Tile.tileResolution*e.getHitBoxWidth()),(int)( Tile.tileResolution/15*e.getHitBoxWidth()));
 		}
 		if(game.debugMode){
 			g.setColor(Color.BLACK);

@@ -24,11 +24,11 @@ public class Enemy extends Mob{
 		findPath();
 		if(stunned<=0){
 			setSpeed(walkSpeed);
-			if(target==null){
+			if(target==null){//come at me bra
 				double x = getGame().getLevel().player.getLocation().getX()-getLocation().getX();
 				double y = getGame().getLevel().player.getLocation().getY()-getLocation().getY();
 				this.setDirection(new Point2D.Double(x, y));
-			}else{
+			}else{//be clever
 				double x = target.getX()-getLocation().getX();
 				double y = target.getY()-getLocation().getY();
 				this.setDirection(new Point2D.Double(x, y));

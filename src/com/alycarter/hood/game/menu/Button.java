@@ -7,9 +7,11 @@ import com.alycarter.hood.game.Game;
 public class Button {
 	public Game game;
 	public Rectangle rectangle;
+	public String name;
 	
-	public Button(Game game,int x, int y,int width, int height) {
+	public Button(Game game, String name, int x, int y,int width, int height) {
 		this.game=game;
+		this.name=name;
 		rectangle=new Rectangle(x,y,width,height);
 	}
 	

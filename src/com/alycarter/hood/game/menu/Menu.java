@@ -28,7 +28,9 @@ public class Menu {
 		g.setColor(Color.BLACK);
 		for (int i=0;i<buttons.size();i++){
 			Button b = buttons.get(i);
+			g.clearRect((int)b.rectangle.getX(),(int) b.rectangle.getY(),(int) b.rectangle.getWidth(), (int)b.rectangle.getHeight());
 			g.drawRect((int)b.rectangle.getX(),(int) b.rectangle.getY(),(int) b.rectangle.getWidth(), (int)b.rectangle.getHeight());
+			g.drawString(b.name,(int)( b.rectangle.getX()+3), (int)(b.rectangle.getY()+(b.rectangle.getHeight()/2)));
 		}
 	}
 	

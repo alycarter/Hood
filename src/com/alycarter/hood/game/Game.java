@@ -22,6 +22,7 @@ import com.alycarter.hood.game.level.map.tile.Tile;
 import com.alycarter.hood.game.menu.GameOverMenu;
 import com.alycarter.hood.game.menu.MainMenu;
 import com.alycarter.hood.game.menu.PauseMenu;
+import com.alycarter.hood.game.menu.SettingsMenu;
 
 public class Game extends Canvas implements Runnable{
 
@@ -29,12 +30,13 @@ public class Game extends Canvas implements Runnable{
 	
 	public int windowWidth;
 	public int windowHeight;
-	private double tileWide = 8;
+	private double tileWide = 7;
 	public final String NAME = "Hood";
 	
 	public MainMenu mainMenu;
 	public PauseMenu pauseMenu;
 	public GameOverMenu gameOverMenu;
+	public SettingsMenu settingsMenu;
 	
 	private Thread gameThread = new Thread(this);
 	
@@ -82,6 +84,7 @@ public class Game extends Canvas implements Runnable{
 		mainMenu=new MainMenu(this);
 		pauseMenu= new PauseMenu(this);
 		gameOverMenu = new GameOverMenu(this);
+		settingsMenu = new SettingsMenu(this);
 		mainMenu.showMenu();
 		level = new RapunzelLevel(this);
 	}
@@ -141,7 +144,11 @@ public class Game extends Canvas implements Runnable{
 			Graphics2D g = (Graphics2D)bs.getDrawGraphics();
 			g.clearRect(0, 0, windowWidth, windowHeight);
 			if(mainMenu.isShown()){
-				mainMenu.render(g);
+				if(settingsMenu.isShown()){
+					settingsMenu.render(g);
+				}else{
+					mainMenu.render(g);
+				}
 			}else{
 				if(level.loaded){
 					if(gameOverMenu.isShown()){
@@ -150,7 +157,11 @@ public class Game extends Canvas implements Runnable{
 					}else{
 						if(pauseMenu.isShown()){
 							level.render(g);
-							pauseMenu.render(g);
+							if(settingsMenu.isShown()){
+								settingsMenu.render(g);
+							}else{
+								pauseMenu.render(g);
+							}
 						}else{
 							level.render(g);
 						}
@@ -180,14 +191,22 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		if(mainMenu.isShown()){
-			mainMenu.update();
+			if(settingsMenu.isShown()){
+				settingsMenu.update();
+			}else {
+				mainMenu.update();
+			}
 		}else{
 			if(level.loaded){
 				if(gameOverMenu.isShown()){
 					gameOverMenu.update();
 				}else{
 					if(pauseMenu.isShown()){
-						pauseMenu.update();
+						if(settingsMenu.isShown()){
+							settingsMenu.update();
+						}else{
+							pauseMenu.update();
+						}
 					}else{
 						level.update();
 					}
@@ -227,5 +246,13 @@ public class Game extends Canvas implements Runnable{
 	}
 	public int getUps(){
 		return ups;
+	}
+	
+	public void setFpsLimit(int limit){
+		fpsLimit = limit;
+	}
+	
+	public int getFpsLimit(){
+		return fpsLimit;
 	}
 }
