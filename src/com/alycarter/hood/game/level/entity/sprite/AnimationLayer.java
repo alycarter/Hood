@@ -14,6 +14,11 @@ public class AnimationLayer {
 	
 	private ArrayList<Animation> animations = new ArrayList<Animation>();
 	
+	private BufferedImage rotatedCurrentFrame;
+	private int loadedFrame=0;
+	private double loadedDirection=0;
+	private boolean currentlyRotating=false;
+	
 	public static int transformMode = AffineTransformOp.TYPE_BILINEAR;
 	
 	public AnimationLayer() {
@@ -23,6 +28,26 @@ public class AnimationLayer {
 
 	public void update(){
 		currentAnimation.update();
+		if(currentAnimation!=null&&!currentlyRotating){
+			if((rotatedCurrentFrame==null)||(currentAnimation.getCurrentFramePointer()!=loadedFrame)||(loadedDirection!=direction)){
+				currentlyRotating=true;
+				new Thread(){
+					public void run() {
+						double rotation = Math.toRadians(direction)*-1;
+						BufferedImage img = new BufferedImage(currentAnimation.getCurrentFrame().getWidth(), currentAnimation.getCurrentFrame().getHeight(), BufferedImage.TYPE_INT_ARGB);
+						double locationX = img.getWidth() / 2;
+						double locationY = img.getHeight() / 2;
+						AffineTransform tx = AffineTransform.getRotateInstance(rotation, locationX, locationY);
+						AffineTransformOp op = new AffineTransformOp(tx, transformMode);
+						img.getGraphics().drawImage(op.filter(currentAnimation.getCurrentFrame(), null), 0, 0, null);
+						loadedFrame=currentAnimation.getCurrentFramePointer();
+						loadedDirection=direction;
+						rotatedCurrentFrame=img;
+						currentlyRotating=false;
+					};
+				}.start();
+			}
+		}
 	}
 	
 	public void setDirection(double direction){
@@ -38,15 +63,7 @@ public class AnimationLayer {
 	}
 	
 	public BufferedImage getImage(){
-		double rotation = Math.toRadians(direction)*-1;
-		BufferedImage img = new BufferedImage(currentAnimation.getCurrentFrame().getWidth(), currentAnimation.getCurrentFrame().getHeight(), BufferedImage.TYPE_INT_ARGB);
-		double locationX = img.getWidth() / 2;
-		double locationY = img.getHeight() / 2;
-		AffineTransform tx = AffineTransform.getRotateInstance(rotation, locationX, locationY);
-		AffineTransformOp op = new AffineTransformOp(tx, transformMode);
-
-		img.getGraphics().drawImage(op.filter(currentAnimation.getCurrentFrame(), null), 0, 0, null);
-		return img;
+		return rotatedCurrentFrame;
 	}
 	
 	public void addAnimation(Animation animation,boolean current){

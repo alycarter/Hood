@@ -31,6 +31,15 @@ public class Animation {
 		this.name=name;
 	}
 	
+	public Animation(Game game, String name,TextureTileLoader spriteSheet, int frames, int startFrame) {
+		for(int i=0;i<frames;i++){
+			this.frames.add(spriteSheet.getTile(i+startFrame));
+		}
+		this.game=game;
+		this.name=name;
+	}
+	
+	
 	public void update(){
 		currentFramePointer += game.getDeltaTime();
 		if(currentFramePointer>=frames.size()){
@@ -48,6 +57,10 @@ public class Animation {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public int getCurrentFramePointer(){
+		return (int) currentFramePointer;
 	}
 
 }

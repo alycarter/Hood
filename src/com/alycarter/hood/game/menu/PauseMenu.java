@@ -17,7 +17,7 @@ public class PauseMenu extends Menu{
 				game.settingsMenu.showMenu();
 			}
 		});
-		addButton(new Button(game,"quit",game.getWidth()/3,100+game.getHeight()/3,game.getWidth()/3,25){
+		addButton(new Button(game,"quit level",game.getWidth()/3,100+game.getHeight()/3,game.getWidth()/3,25){
 			public void onClick(){
 				game.pauseMenu.hideMenu();
 				game.mainMenu.showMenu();

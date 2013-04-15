@@ -2,6 +2,7 @@ package com.alycarter.hood.game.level;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class Level extends Thread{
 
 	public boolean loaded=false;
 	public int towerPoints = 0;
+	
 	
 	private ArrayList<Wave> waves = new ArrayList<Wave>();
 	
@@ -94,6 +96,7 @@ public class Level extends Thread{
 	}
 	
 	public void render(Graphics2D g){
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 		g.drawImage(getMap().mapTexture, (int)(game.windowWidth/2-(camera.getLocation().getX()*Tile.tileResolution)),(int)(game.windowHeight/2-(camera.getLocation().getY()*Tile.tileResolution)), null);
 		drawEntity(cursor, g);
 		for (int e = 0;e<entities.size();e++){

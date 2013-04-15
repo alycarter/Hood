@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.entity.Entity;
+import com.alycarter.hood.game.level.entity.particle.Particle;
 import com.alycarter.hood.game.level.entity.particle.Pickup;
 import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
@@ -97,6 +98,13 @@ public class EnemyArcher extends Mob{
 	
 	public void onKill(Entity sender) {
 		markRemoved();
+		for (int i=0;i<ArcherDeathAnimation.chunks;i++){
+			Particle p = new Particle(getGame(), getLocation(), this.getImageWidth()/Math.sqrt(ArcherDeathAnimation.chunks),0.5, Math.random()*360, 1);
+			p.sprite.addAnimationLayer(new ArcherDeathAnimation(getGame()));
+			p.sprite.getAnimationLayer(0).setDirection(p.getDirectionAsAngle());
+			p.sprite.getAnimationLayer(0).setCurrentAnimation("bow"+i, true);
+			getGame().getLevel().entities.add(p);
+		}
 		if(Math.random()<0.5){
 			getGame().getLevel().entities.add(new Pickup(getGame(),getLocation()));
 		}
@@ -223,5 +231,16 @@ class ArcherAnimation extends AnimationLayer{
 	
 	public ArcherAnimation(Game game){
 		addAnimation(new Animation(game,"bow",bow,1),true);
+	}
+}
+
+class ArcherDeathAnimation extends AnimationLayer{
+	public final static int chunks=25;
+	private static TextureTileLoader bow= new TextureTileLoader("bow.png", 128/(int)Math.sqrt(chunks));
+	
+	public ArcherDeathAnimation(Game game){
+		for(int i=0;i<chunks;i++){
+			addAnimation(new Animation(game,"bow"+i,bow,1,i),true);	
+		}
 	}
 }

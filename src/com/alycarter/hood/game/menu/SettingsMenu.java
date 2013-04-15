@@ -47,33 +47,34 @@ public class SettingsMenu extends Menu {
 				name=String.valueOf("fps limit: "+game.getFpsLimit());
 			}
 		});
-		addButton(new Button(game,String.valueOf("blend mode: "+AnimationLayer.transformMode+" (default)"),game.getWidth()/3,100+game.getHeight()/3,game.getWidth()/3,25){
+		addButton(new Button(game,String.valueOf("transform mode: "+AnimationLayer.transformMode+" (default)"),game.getWidth()/3,100+game.getHeight()/3,game.getWidth()/3,25){
 			public void onClick(){
 				switch(AnimationLayer.transformMode){
 					case AffineTransformOp.TYPE_BICUBIC:{
 						AnimationLayer.transformMode=AffineTransformOp.TYPE_BILINEAR;
-						name=String.valueOf("blend mode: "+AnimationLayer.transformMode+" (default)");
+						name=String.valueOf("transform mode: "+AnimationLayer.transformMode+" (default)");
 						break;
 					}
 					case AffineTransformOp.TYPE_BILINEAR:{
 						AnimationLayer.transformMode=AffineTransformOp.TYPE_NEAREST_NEIGHBOR;
-						name=String.valueOf("blend mode: "+AnimationLayer.transformMode+" (worst)");
+						name=String.valueOf("transform mode: "+AnimationLayer.transformMode+" (worst)");
 						break;
 					}
 					case AffineTransformOp.TYPE_NEAREST_NEIGHBOR:{
 						AnimationLayer.transformMode=AffineTransformOp.TYPE_BICUBIC;
-						name=String.valueOf("blend mode: "+AnimationLayer.transformMode+" (best)");
+						name=String.valueOf("transform mode: "+AnimationLayer.transformMode+" (best)");
 						break;
 					}
 					default:{
 						AnimationLayer.transformMode=AffineTransformOp.TYPE_BILINEAR;
-						name=String.valueOf("blend mode: "+AnimationLayer.transformMode+" (default)");
+						name=String.valueOf("transform mode: "+AnimationLayer.transformMode+" (default)");
 						break;
 					}
 				}
 				
 			}
 		});
+		
 	}
 
 }

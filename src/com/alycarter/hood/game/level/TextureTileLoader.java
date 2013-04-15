@@ -1,5 +1,6 @@
 package com.alycarter.hood.game.level;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -25,7 +26,11 @@ public class TextureTileLoader {
 		if(xOrigin<sheet.getWidth()&&yOrigin<sheet.getHeight()){
 			for (int x = 0;x<resolution;x++){
 				for (int y =0; y<resolution;y++){
-					image.setRGB(x,y,sheet.getRGB((xOrigin*resolution)+x, (yOrigin*resolution)+y));
+					if((xOrigin*resolution)+x<sheet.getWidth()&&(yOrigin*resolution)+y<sheet.getHeight()){
+						image.setRGB(x,y,sheet.getRGB((xOrigin*resolution)+x, (yOrigin*resolution)+y));
+					}else{
+						image.setRGB(x, y, new Color(0f,0f,0f,0f).getRGB());
+					}
 				}	
 			}
 		}
