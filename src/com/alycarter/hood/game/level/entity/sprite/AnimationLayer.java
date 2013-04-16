@@ -17,6 +17,7 @@ public class AnimationLayer {
 	private BufferedImage rotatedCurrentFrame;
 	private int loadedFrame=0;
 	private double loadedDirection=0;
+	private Animation loadedAnimation = null;
 	private boolean currentlyRotating=false;
 	
 	public static int transformMode = AffineTransformOp.TYPE_BILINEAR;
@@ -29,7 +30,7 @@ public class AnimationLayer {
 	public void update(){
 		currentAnimation.update();
 		if(currentAnimation!=null&&!currentlyRotating){
-			if((rotatedCurrentFrame==null)||(currentAnimation.getCurrentFramePointer()!=loadedFrame)||(loadedDirection!=direction)){
+			if((rotatedCurrentFrame==null)||(currentAnimation.getCurrentFramePointer()!=loadedFrame)||(loadedDirection!=direction)||(loadedAnimation!=currentAnimation)){
 				currentlyRotating=true;
 				new Thread(){
 					public void run() {
@@ -42,6 +43,7 @@ public class AnimationLayer {
 						img.getGraphics().drawImage(op.filter(currentAnimation.getCurrentFrame(), null), 0, 0, null);
 						loadedFrame=currentAnimation.getCurrentFramePointer();
 						loadedDirection=direction;
+						loadedAnimation = currentAnimation;
 						rotatedCurrentFrame=img;
 						currentlyRotating=false;
 					};
@@ -71,6 +73,10 @@ public class AnimationLayer {
 		if(current){
 			setCurrentAnimation(animation.getName(), true);
 		}
+	}
+	
+	public double getDirection(){
+		return direction;
 	}
 
 	public void setCurrentAnimation(String animationName, boolean restart){

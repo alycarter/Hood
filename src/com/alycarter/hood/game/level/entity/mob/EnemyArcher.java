@@ -98,16 +98,31 @@ public class EnemyArcher extends Mob{
 	
 	public void onKill(Entity sender) {
 		markRemoved();
-		for (int i=0;i<ArcherDeathAnimation.chunks;i++){
-			Particle p = new Particle(getGame(), getLocation(), this.getImageWidth()/Math.sqrt(ArcherDeathAnimation.chunks),0.5, Math.random()*360, 1);
-			p.sprite.addAnimationLayer(new ArcherDeathAnimation(getGame()));
-			p.sprite.getAnimationLayer(0).setDirection(p.getDirectionAsAngle());
-			p.sprite.getAnimationLayer(0).setCurrentAnimation("bow"+i, true);
-			getGame().getLevel().entities.add(p);
-		}
-		if(Math.random()<0.5){
-			getGame().getLevel().entities.add(new Pickup(getGame(),getLocation()));
-		}
+		new Thread(){
+			public void run(){
+				for (int i=0;i<ArcherDeathAnimation.chunks;i++){
+					double width = getImageWidth()/Math.sqrt(ArcherDeathAnimation.chunks);
+					double x= 0-(getImageWidth()/2);
+					double y= 0-(getImageWidth()/2);
+					y+=width*(int)((double)(i)/Math.sqrt(ArcherDeathAnimation.chunks));
+					x+=width*((double)(i)%Math.sqrt(ArcherDeathAnimation.chunks));
+					double sin = Math.sin(Math.toRadians(sprite.getAnimationLayer(0).getDirection()-180));
+					double cos = Math.cos(Math.toRadians(sprite.getAnimationLayer(0).getDirection()));
+					double tempX=x;
+					x= (x*cos)-(y*sin);
+					y= (tempX*sin) + (y*cos);
+					System.out.println(i+" "+x+" "+y);
+					Particle p = new Particle(getGame(), new Point2D.Double(x+getLocation().getX(), y+getLocation().getY()), width,0.25, vectorAsAngle(new Point2D.Double(x, y)), 1);
+					p.sprite.addAnimationLayer(new ArcherDeathAnimation(getGame()));
+					p.sprite.getAnimationLayer(0).setDirection(sprite.getAnimationLayer(0).getDirection());
+					p.sprite.getAnimationLayer(0).setCurrentAnimation("bow"+i, true);
+					getGame().getLevel().entities.add(p);
+				}
+				if(Math.random()<0.5){
+					getGame().getLevel().entities.add(new Pickup(getGame(),getLocation()));
+				}
+			}
+		}.start();
 	}
 	
 	public void findPath(Point2D.Double t){
