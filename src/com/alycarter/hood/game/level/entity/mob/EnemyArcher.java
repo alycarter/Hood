@@ -98,6 +98,9 @@ public class EnemyArcher extends Mob{
 	
 	public void onKill(Entity sender) {
 		markRemoved();
+		if(Math.random()<0.5){
+			getGame().getLevel().entities.add(new Pickup(getGame(),getLocation()));
+		}
 		new Thread(){
 			public void run(){
 				for (int i=0;i<ArcherDeathAnimation.chunks;i++){
@@ -116,9 +119,6 @@ public class EnemyArcher extends Mob{
 					p.sprite.getAnimationLayer(0).setDirection(sprite.getAnimationLayer(0).getDirection());
 					p.sprite.getAnimationLayer(0).setCurrentAnimation("bow"+i, true);
 					getGame().getLevel().entities.add(p);
-				}
-				if(Math.random()<0.5){
-					getGame().getLevel().entities.add(new Pickup(getGame(),getLocation()));
 				}
 			}
 		}.start();

@@ -4,18 +4,28 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import com.alycarter.hood.game.Game;
+import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.entity.Entity;
+import com.alycarter.hood.game.level.entity.particle.Particle;
 import com.alycarter.hood.game.level.entity.particle.Pickup;
+import com.alycarter.hood.game.level.entity.sprite.Animation;
+import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
 
 public class Enemy extends Mob{
 	private static final double attackDelay = 2;
 	private double attackCoolDown = 0;
+	
 	private double stunned=0;
+	
 	private Point2D.Double target= new Point2D.Double(0, 0);
+	
+	private int stance = 1;
+	
 	private static double walkSpeed = 1;
+	
 	public Enemy(Game game, Point2D.Double location) {
 		super(game,Entity.TYPE_ENEMY,location,2.5,0,1.5,0.5);
-		sprite.addAnimationLayer(new PlayerAnimation(game));
+		sprite.addAnimationLayer(new EnemyAnimation(game));
 		showShadow();
 		setSpeed(walkSpeed);
 	}
@@ -24,7 +34,7 @@ public class Enemy extends Mob{
 		findPath();
 		if(stunned<=0){
 			setSpeed(walkSpeed);
-			if(target==null){//come at me bra
+			if(target==null){//come at me brah
 				double x = getGame().getLevel().player.getLocation().getX()-getLocation().getX();
 				double y = getGame().getLevel().player.getLocation().getY()-getLocation().getY();
 				this.setDirection(new Point2D.Double(x, y));
@@ -38,6 +48,12 @@ public class Enemy extends Mob{
 			if(distanceBetweenHitBoxes(getGame().getLevel().player)<((getImageWidth()/2)-getHitBoxWidth())/2 && attackCoolDown<=0){
 				getGame().getLevel().player.damage(this, 1);
 				attackCoolDown =attackDelay;
+				if(stance==1){
+					stance=2;
+				}else{
+					stance=1;
+				}
+				sprite.getAnimationLayer(0).setCurrentAnimation("sword"+stance, true);
 			}
 		}else{
 			setSpeed(0);
@@ -184,6 +200,47 @@ public class Enemy extends Mob{
 		if(Math.random()<0.5){
 			getGame().getLevel().entities.add(new Pickup(getGame(),getLocation()));
 		}
+		new Thread(){
+			public void run(){
+				for (int i=0;i<EnemyDeathAnimation.chunks;i++){
+					double width = getImageWidth()/Math.sqrt(EnemyDeathAnimation.chunks);
+					double x= 0-(getImageWidth()/2);
+					double y= 0-(getImageWidth()/2);
+					y+=width*(int)((double)(i)/Math.sqrt(EnemyDeathAnimation.chunks));
+					x+=width*((double)(i)%Math.sqrt(EnemyDeathAnimation.chunks));
+					double sin = Math.sin(Math.toRadians(sprite.getAnimationLayer(0).getDirection()-180));
+					double cos = Math.cos(Math.toRadians(sprite.getAnimationLayer(0).getDirection()));
+					double tempX=x;
+					x= (x*cos)-(y*sin);
+					y= (tempX*sin) + (y*cos);
+					Particle p = new Particle(getGame(), new Point2D.Double(x+getLocation().getX(), y+getLocation().getY()), width,0.25, vectorAsAngle(new Point2D.Double(x, y)), 1);
+					p.sprite.addAnimationLayer(new EnemyDeathAnimation(getGame()));
+					p.sprite.getAnimationLayer(0).setDirection(sprite.getAnimationLayer(0).getDirection());
+					p.sprite.getAnimationLayer(0).setCurrentAnimation("sword"+i, true);
+					getGame().getLevel().entities.add(p);
+				}
+			}
+		}.start();
 	}
 
+}
+
+class EnemyAnimation extends AnimationLayer{
+	private static TextureTileLoader sword1 = new TextureTileLoader("sword.png", 288);
+	private static TextureTileLoader sword2 = new TextureTileLoader("sword2.png", 128);
+	
+	public EnemyAnimation(Game game){
+		addAnimation(new Animation(game,"sword2",sword2,1),true);
+		addAnimation(new Animation(game,"sword1",sword1,1),true);
+	}
+}
+class EnemyDeathAnimation extends AnimationLayer{
+	public final static int chunks=25;
+	private static TextureTileLoader sword= new TextureTileLoader("sword.png", 288/(int)Math.sqrt(chunks));
+	
+	public EnemyDeathAnimation(Game game){
+		for(int i=0;i<chunks;i++){
+			addAnimation(new Animation(game,"sword"+i,sword,1,i),true);	
+		}
+	}
 }

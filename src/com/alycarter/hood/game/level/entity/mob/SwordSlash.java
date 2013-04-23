@@ -13,13 +13,17 @@ public class SwordSlash extends Mob{
 	private double damage;
 	private ArrayList<Entity> ignore = new ArrayList<Entity>();
 	
-	public SwordSlash(Game game, Point2D.Double location, double direction, double speed, double maxDistance, double damage) {
+	public static final String slashLeft = "left";
+	public static final String slashRight = "rigth";
+	
+	public SwordSlash(Game game,String slashDirection, Point2D.Double location, double direction, double speed, double maxDistance, double damage) {
 		super(game,Entity.TYPE_ARROW,location,1,1,0.75,0.35);
 		setDirection(direction);
 		setSpeed(speed);
 		duration = maxDistance/getSpeed();
 		sprite.addAnimationLayer(new SlashAnimation(game));
 		sprite.getAnimationLayer(0).setDirection(direction);
+		sprite.getAnimationLayer(0).setCurrentAnimation(slashDirection, true);
 		hideHealthBar();
 		this.damage=damage;
 	}
@@ -43,6 +47,7 @@ public class SwordSlash extends Mob{
 class SlashAnimation extends AnimationLayer{
 	
 	public SlashAnimation(Game game){
-		addAnimation(new Animation(game,"slash","slash.png",16,1),true);
+		addAnimation(new Animation(game,SwordSlash.slashLeft,"slash.png",16,1),true);
+		addAnimation(new Animation(game,SwordSlash.slashRight,"slash.png",16,1),true);
 	}
 }

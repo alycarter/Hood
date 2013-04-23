@@ -83,7 +83,11 @@ public class Player extends Mob{
 				double distanceFromPlayer = (getImageWidth()/2)-0.32;
 				double xl=getLocation().getX()+(angleAsVector(faceDirection).getX()*distanceFromPlayer);
 				double yl=getLocation().getY()+(angleAsVector(faceDirection).getY()*distanceFromPlayer);
-				getGame().getLevel().entities.add(new SwordSlash(getGame(),new Point2D.Double(xl,yl),faceDirection,moveSpeed,0.4,1));
+				if(stance==1){
+					getGame().getLevel().entities.add(new SwordSlash(getGame(),SwordSlash.slashRight,new Point2D.Double(xl,yl),faceDirection,moveSpeed,0.4,1));
+				}else{
+					getGame().getLevel().entities.add(new SwordSlash(getGame(),SwordSlash.slashLeft,new Point2D.Double(xl,yl),faceDirection,moveSpeed,0.4,1));
+				}
 				attackCoolDown =attackDelay;
 				if(stance==1){
 					stance=2;
