@@ -1,6 +1,7 @@
 package com.alycarter.hood.game.level.entity.mob;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.level.entity.Entity;
@@ -10,6 +11,8 @@ import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
 public class SwordSlash extends Mob{
 	private double duration;
 	private double damage;
+	private ArrayList<Entity> ignore = new ArrayList<Entity>();
+	
 	public SwordSlash(Game game, Point2D.Double location, double direction, double speed, double maxDistance, double damage) {
 		super(game,Entity.TYPE_ARROW,location,1,1,0.75,0.35);
 		setDirection(direction);
@@ -29,10 +32,10 @@ public class SwordSlash extends Mob{
 	}
 	
 	public void onCollide(Entity entity){
-		if(entity.entityType==Entity.TYPE_ENEMY){
+		if(entity.entityType==Entity.TYPE_ENEMY&&!ignore.contains(entity)){
 			entity.damage(this, damage);
+			ignore.add(entity);
 		}
-		this.markRemoved();
 	}
 
 }

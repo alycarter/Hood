@@ -6,6 +6,7 @@ import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import com.alycarter.hood.game.Font;
 import com.alycarter.hood.game.Game;
 import com.alycarter.hood.game.level.entity.Camera;
 import com.alycarter.hood.game.level.entity.Cursor;
@@ -105,7 +106,7 @@ public class Level extends Thread{
 			}
 		}
 		g.setColor(Color.BLACK);
-		g.drawString(String.valueOf(towerPoints), game.windowWidth/2, 20);
+		Font.drawString(g,String.valueOf(towerPoints),Game.defaultFont,20,-2, game.windowWidth/2, 20);
 		if(game.debugMode){
 			g.clearRect(0, 0, 200, 150);
 			g.drawString("fps: "+String.valueOf(game.getFps()), 10, 20);

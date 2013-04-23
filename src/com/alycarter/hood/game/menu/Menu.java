@@ -1,10 +1,10 @@
 package com.alycarter.hood.game.menu;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import com.alycarter.hood.game.Font;
 import com.alycarter.hood.game.Game;
 
 public class Menu {
@@ -26,17 +26,24 @@ public class Menu {
 	}
 	
 	public void render(Graphics g){
+		onRender(g);
 		g.setColor(Color.BLACK);
+		int overlap = -2;
 		for (int i=0;i<buttons.size();i++){
 			Button b = buttons.get(i);
-			int size = (int) (b.rectangle.getHeight()-2);
-			g.setFont(new Font(Font.SANS_SERIF,Font.BOLD,size));
+			int size = (int) (b.rectangle.getHeight()-4);
+			if((size-overlap)*b.name.length()>b.rectangle.getWidth()){
+				size=(int)((double)(b.rectangle.getWidth()+(overlap*b.name.length()))/(double)b.name.length());
+			}
 			g.clearRect((int)b.rectangle.getX(),(int) b.rectangle.getY(),(int) b.rectangle.getWidth(), (int)b.rectangle.getHeight());
 			g.drawRect((int)b.rectangle.getX(),(int) b.rectangle.getY(),(int) b.rectangle.getWidth(), (int)b.rectangle.getHeight());
-			g.drawString(b.name,(int)( b.rectangle.getX()+(b.rectangle.width/2)-((size*b.name.length())/4)), (int)(b.rectangle.getY())+size-2);
+			Font.drawString(g,b.name,Game.defaultFont,size,overlap,(int)(b.rectangle.getCenterX()-((size-overlap)*b.name.length()/2)), (int)(b.rectangle.getCenterY()-(size/2)));
 		}
 	}
 	
+	public void onRender(Graphics g) {
+	}
+
 	public void addButton(Button b){
 		buttons.add(b);
 	}

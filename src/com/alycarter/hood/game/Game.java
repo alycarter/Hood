@@ -18,7 +18,9 @@ import javax.swing.JFrame;
 
 import com.alycarter.hood.game.level.Level;
 import com.alycarter.hood.game.level.RapunzelLevel;
+import com.alycarter.hood.game.level.TextureTileLoader;
 import com.alycarter.hood.game.level.map.tile.Tile;
+import com.alycarter.hood.game.menu.ControlsMenu;
 import com.alycarter.hood.game.menu.GameOverMenu;
 import com.alycarter.hood.game.menu.MainMenu;
 import com.alycarter.hood.game.menu.PauseMenu;
@@ -37,6 +39,7 @@ public class Game extends Canvas implements Runnable{
 	public PauseMenu pauseMenu;
 	public GameOverMenu gameOverMenu;
 	public SettingsMenu settingsMenu;
+	public ControlsMenu controlsMenu;
 	
 	private Thread gameThread = new Thread(this);
 	
@@ -54,6 +57,7 @@ public class Game extends Canvas implements Runnable{
 	public Controls controls =new Controls(this);
 	
 	public boolean debugMode = false;
+	public final static TextureTileLoader defaultFont= new TextureTileLoader("testFont.png", 4);
 	
 	public Game(JFrame frame) {
 		this.frame=frame;
@@ -85,6 +89,7 @@ public class Game extends Canvas implements Runnable{
 		pauseMenu= new PauseMenu(this);
 		gameOverMenu = new GameOverMenu(this);
 		settingsMenu = new SettingsMenu(this);
+		controlsMenu = new ControlsMenu(this);
 		mainMenu.showMenu();
 		level = new RapunzelLevel(this);
 	}
@@ -147,7 +152,11 @@ public class Game extends Canvas implements Runnable{
 				if(settingsMenu.isShown()){
 					settingsMenu.render(g);
 				}else{
-					mainMenu.render(g);
+					if(controlsMenu.isShown()){
+						controlsMenu.render(g);
+					}else{
+						mainMenu.render(g);
+					}
 				}
 			}else{
 				if(level.loaded){
@@ -167,7 +176,7 @@ public class Game extends Canvas implements Runnable{
 						}
 					}
 				}else{
-					g.drawString("loading level", getWidth()/2, getHeight()/2);
+					Font.drawString(g, "loading level", Game.defaultFont, 20, -2, getWidth()/2-(8*20), getHeight()/2);
 				}
 			}
 			bs.show();
@@ -194,7 +203,11 @@ public class Game extends Canvas implements Runnable{
 			if(settingsMenu.isShown()){
 				settingsMenu.update();
 			}else {
-				mainMenu.update();
+				if(controlsMenu.isShown()){
+					controlsMenu.update();
+				}else {
+					mainMenu.update();
+				}
 			}
 		}else{
 			if(level.loaded){

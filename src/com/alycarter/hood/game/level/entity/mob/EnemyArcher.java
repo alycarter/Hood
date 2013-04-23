@@ -111,7 +111,6 @@ public class EnemyArcher extends Mob{
 					double tempX=x;
 					x= (x*cos)-(y*sin);
 					y= (tempX*sin) + (y*cos);
-					System.out.println(i+" "+x+" "+y);
 					Particle p = new Particle(getGame(), new Point2D.Double(x+getLocation().getX(), y+getLocation().getY()), width,0.25, vectorAsAngle(new Point2D.Double(x, y)), 1);
 					p.sprite.addAnimationLayer(new ArcherDeathAnimation(getGame()));
 					p.sprite.getAnimationLayer(0).setDirection(sprite.getAnimationLayer(0).getDirection());

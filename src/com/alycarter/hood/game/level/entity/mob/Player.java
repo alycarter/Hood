@@ -33,12 +33,15 @@ public class Player extends Mob{
 		double y=0;
 		
 		if(getGame().controls.isPressed(KeyEvent.VK_SPACE)){
-			getGame().getLevel().cursor.sprite.getAnimationLayer(0).setCurrentAnimation("target", true);
 			if(getGame().getLevel().towerPoints>0){
 				Turret t=new Turret(getGame(),getGame().getLevel().cursor.getLocation(),3);
 				if(t.checkCollisions()==-1){
 					getGame().getLevel().cursor.sprite.getAnimationLayer(0).setCurrentAnimation("turret", true);
+				}else{
+					getGame().getLevel().cursor.sprite.getAnimationLayer(0).setCurrentAnimation("target", true);
 				}
+			}else{
+				getGame().getLevel().cursor.sprite.getAnimationLayer(0).setCurrentAnimation("target", true);
 			}
 		}else{
 			getGame().getLevel().cursor.sprite.getAnimationLayer(0).setCurrentAnimation("cross", true);
