@@ -26,11 +26,11 @@ public class EnemySpawner extends Mob{
 		spawnCoolDown-=getGame().getDeltaTime();
 		if(spawnQueue.size()>0&&spawnCoolDown<=0){
 			if(portal==null){
-				portal =new Portal(getGame(), getLocation(), 1);
+				portal =new Portal(getGame(), getLocation(), spawnDelay);
 				getGame().getLevel().entities.add(portal);
 			}else{
 				if(portal.isRemoved()){
-					portal =new Portal(getGame(), getLocation(), 1);
+					portal =new Portal(getGame(), getLocation(), spawnDelay);
 					getGame().getLevel().entities.add(portal);
 				}
 			}
@@ -44,7 +44,7 @@ public class EnemySpawner extends Mob{
 				spawnCoolDown=spawnDelay;
 			}else{
 				if(getGame().getLevel().entities.get(e.checkCollisions()).entityType==Entity.TYPE_TURRET){
-					getGame().getLevel().entities.get(e.checkCollisions()).damage(this, getGame().getDeltaTime());
+					getGame().getLevel().entities.get(e.checkCollisions()).damage(this, getGame().getDeltaTime()*2);
 				}
 			}
 		}

@@ -8,6 +8,7 @@ import com.alycarter.hood.game.level.entity.sprite.Animation;
 import com.alycarter.hood.game.level.entity.sprite.AnimationLayer;
 
 public class Portal extends Particle {
+	
 	public Portal(Game game, Double location,double duration) {
 		super(game, location, 1, duration, 0, 0);
 		sprite.addAnimationLayer(new PortalAnimation(game));
@@ -15,6 +16,7 @@ public class Portal extends Particle {
 
 	@Override
 	public void onUpdate() {
+		super.onUpdate();
 		sprite.getAnimationLayer(0).setDirection(sprite.getAnimationLayer(0).getDirection()+getGame().getDeltaTime()*180);
 	}
 }

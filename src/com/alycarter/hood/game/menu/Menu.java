@@ -46,7 +46,7 @@ public class Menu {
 				size=(int)((double)(b.rectangle.getWidth()+(overlap*b.name.length()))/(double)b.name.length());
 			}
 			//g.clearRect((int)b.rectangle.getX(),(int) b.rectangle.getY(),(int) b.rectangle.getWidth(), (int)b.rectangle.getHeight());
-			g.drawImage(buttonImg,(int)b.rectangle.getX()-10,(int) b.rectangle.getY()-10,(int) b.rectangle.getWidth()+10, (int)b.rectangle.getHeight()+17,null);
+			g.drawImage(buttonImg,(int)b.rectangle.getX(),(int) b.rectangle.getY()-10,(int) b.rectangle.getWidth(), (int)b.rectangle.getHeight()+17,null);
 			Font.drawString(g,b.name,Game.defaultFont,size,overlap,(int)(b.rectangle.getCenterX()-((size-overlap)*b.name.length()/2)), (int)(b.rectangle.getCenterY()-(size/2)));
 		}
 	}

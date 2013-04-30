@@ -22,7 +22,7 @@ public class RapunzelLevel extends Level{
 	public void onLoad(){
 		spawnerLeft=new EnemySpawner(game,new Point2D.Double(5,6),-90,2.75);
 		spawnerRight = new EnemySpawner(game,new Point2D.Double(7,6),90,2.25);
-		spawnerRapunzel = new EnemySpawner(game,new Point2D.Double(6,6),0,0);
+		spawnerRapunzel = new EnemySpawner(game,new Point2D.Double(6,6),0,2);
 		entities.add(spawnerRapunzel);
 		entities.add(spawnerLeft);
 		entities.add(spawnerRight);

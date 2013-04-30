@@ -21,5 +21,9 @@ public class Particle extends Entity{
 			markRemoved();
 		}
 	}
+	
+	public double getTimeRemaining(){
+		return duration;
+	}
 
 }
