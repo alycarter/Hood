@@ -14,7 +14,7 @@ public class AnimationLayer {
 	
 	private ArrayList<Animation> animations = new ArrayList<Animation>();
 	
-	private BufferedImage rotatedCurrentFrame;
+	private BufferedImage rotatedCurrentFrame=null;
 	private int loadedFrame=0;
 	private double loadedDirection=0;
 	private Animation loadedAnimation = null;

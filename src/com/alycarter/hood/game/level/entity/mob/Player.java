@@ -21,7 +21,7 @@ public class Player extends Mob{
 	private double bowTension=0;
 	
 	public Player(Game game,Point2D.Double location) {
-		super(game,Entity.TYPE_PLAYER,location,10,0,1.5,0.5);
+		super(game,Entity.TYPE_PLAYER,location,10,0,1.75,0.5);
 		//hideHealthBar();
 		sprite.addAnimationLayer(new PlayerAnimation(game));
 		faceDirection=getDirectionAsAngle();
@@ -122,9 +122,9 @@ public class Player extends Mob{
 }
 
 class PlayerAnimation extends AnimationLayer{
-	private static TextureTileLoader bow = new TextureTileLoader("bow.png", 128);
+	private static TextureTileLoader bow = new TextureTileLoader("bow.png", 384);
 	private static TextureTileLoader sword1 = new TextureTileLoader("sword.png", 288);
-	private static TextureTileLoader sword2 = new TextureTileLoader("sword2.png", 128);
+	private static TextureTileLoader sword2 = new TextureTileLoader("sword1.png", 384);
 	
 	public PlayerAnimation(Game game){
 		addAnimation(new Animation(game,"bow",bow,1),true);

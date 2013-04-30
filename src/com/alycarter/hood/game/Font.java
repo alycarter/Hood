@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import com.alycarter.hood.game.level.TextureTileLoader;
 
 public class Font {
-	private static final String letterSequence = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789():";
+	private static final String letterSequence = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890():";
 	
 	public static void drawString(Graphics g, String string, TextureTileLoader typeFace, int size, int overlay, int x, int y){
 		int xOffset=x;

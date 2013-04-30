@@ -60,7 +60,7 @@ class ParticleAnimation extends AnimationLayer{
 }
 
 class CogAnimation extends AnimationLayer{
-	private static TextureTileLoader cog= new TextureTileLoader("cog.png", 16);
+	private static TextureTileLoader cog= new TextureTileLoader("pickup.png", 67);
 	
 	public CogAnimation(Game game){
 		addAnimation(new Animation(game,"cog",cog,1),true);

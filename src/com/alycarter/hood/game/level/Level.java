@@ -40,7 +40,7 @@ public class Level extends Thread{
 		loaded=false;
 		new Thread(){
 			public void run(){
-				towerPoints =0;
+				towerPoints =999;
 				map=new Map();
 				entities=new ArrayList<Entity>();
 				waves= new ArrayList<Wave>();

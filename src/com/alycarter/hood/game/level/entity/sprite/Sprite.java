@@ -23,11 +23,15 @@ public class Sprite {
 	}
 	
 	public BufferedImage getImage(){
-		BufferedImage img;
+		BufferedImage img = null;
 		if(layers.size()>=1){
-			img = layers.get(0).getImage();
-			for (int i=1;i<layers.size();i++){
-				img.getGraphics().drawImage(layers.get(i).getImage(), 0, 0, null);
+			if(layers.get(0).getImage()!=null){
+				img = new BufferedImage(layers.get(0).getImage().getWidth(),layers.get(0).getImage().getHeight(), BufferedImage.TYPE_INT_ARGB);
+				for (int i=0;i<layers.size();i++){
+					if(layers.get(i).getImage()!=null){
+						img.getGraphics().drawImage(layers.get(i).getImage(), 0, 0, null);
+					}
+				}
 			}
 		}else{
 			img = new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB);

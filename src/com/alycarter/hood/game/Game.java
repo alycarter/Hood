@@ -57,7 +57,7 @@ public class Game extends Canvas implements Runnable{
 	public Controls controls =new Controls(this);
 	
 	public boolean debugMode = false;
-	public final static TextureTileLoader defaultFont= new TextureTileLoader("testFont.png", 4);
+	public final static TextureTileLoader defaultFont= new TextureTileLoader("font.png", 128);
 	
 	public Game(JFrame frame) {
 		this.frame=frame;

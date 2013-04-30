@@ -54,7 +54,7 @@ public class Hair extends Entity{
 class HairAnimation extends AnimationLayer{
 	
 	public HairAnimation(Game game){
-		addAnimation(new Animation(game,"hair","hair.png",128,1),true);
+		addAnimation(new Animation(game,"hair","hair.png",96,1),true);
 	}
 }
 

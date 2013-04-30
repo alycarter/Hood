@@ -14,6 +14,7 @@ public class Turret extends Mob{
 	private double range;
 	public Turret(Game game, Point2D.Double location, double range) {
 		super(game,Entity.TYPE_TURRET,location,3,0,0.8,0.5);
+		sprite.addAnimationLayer(new ClothAnimation(game));
 		sprite.addAnimationLayer(new TurretAnimation(game));
 		this.range=range;
 	}
@@ -39,7 +40,7 @@ public class Turret extends Mob{
 					double x = closest.getLocation().getX()-getLocation().getX();
 					double y = closest.getLocation().getY()-getLocation().getY();
 					this.setDirection(new Point2D.Double(x, y));
-					sprite.getAnimationLayer(0).setDirection(getDirectionAsAngle());
+					sprite.getAnimationLayer(1).setDirection(getDirectionAsAngle());
 					double xl=getLocation().getX()+(getDirectionAsVector().getX()*(getImageWidth()/2));
 					double yl=getLocation().getY()+(getDirectionAsVector().getY()*(getImageWidth()/2));
 					int[] t ={Entity.TYPE_ENEMY}; 
@@ -52,8 +53,16 @@ public class Turret extends Mob{
 
 }
 
+class ClothAnimation extends AnimationLayer{
+	private static TextureTileLoader cloth= new TextureTileLoader("picnic cloth.png",154);
+	
+	public ClothAnimation(Game game){
+		addAnimation(new Animation(game,"cloth",cloth,1),true);
+	}
+}
+
 class TurretAnimation extends AnimationLayer{
-	private static TextureTileLoader turret= new TextureTileLoader("turret.png",128);
+	private static TextureTileLoader turret= new TextureTileLoader("turret.png",154);
 	
 	public TurretAnimation(Game game){
 		addAnimation(new Animation(game,"turret",turret,1),true);

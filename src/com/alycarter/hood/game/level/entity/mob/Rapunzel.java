@@ -17,7 +17,7 @@ public class Rapunzel extends Mob{
 	private double burstCoolDown = burstDelay;
 	private double burstTime = 0;
 	public Rapunzel(Game game, Point2D.Double location) {
-		super(game, Entity.TYPE_ENEMY, location,20, 0, 1.5, 0.5);
+		super(game, Entity.TYPE_ENEMY, location,20, 0, 1, 0.5);
 		sprite.addAnimationLayer(new RapunzelAnimation(game));
 		showShadow();
 	}
@@ -54,6 +54,6 @@ public class Rapunzel extends Mob{
 class RapunzelAnimation extends AnimationLayer{
 	
 	public RapunzelAnimation(Game game){
-		addAnimation(new Animation(game,"rapunzel","rapunzel.png",128,1),true);
+		addAnimation(new Animation(game,"rapunzel","rapunzel.png",192,1),true);
 	}
 }

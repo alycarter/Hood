@@ -3,7 +3,7 @@ package com.alycarter.hood.game.level;
 import java.awt.geom.Point2D;
 
 import com.alycarter.hood.game.Game;
-import com.alycarter.hood.game.level.entity.mob.Enemy;
+import com.alycarter.hood.game.level.entity.mob.Wolf;
 import com.alycarter.hood.game.level.entity.mob.EnemyArcher;
 import com.alycarter.hood.game.level.entity.mob.EnemySpawner;
 import com.alycarter.hood.game.level.entity.mob.Player;
@@ -43,10 +43,10 @@ public class RapunzelLevel extends Level{
 		}
 
 		public void onStart(){
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
 		}
 		public boolean extraEndConditionsMet() {
 			return (spawnerLeft.hasEmptySpawnQueue()&&spawnerRight.hasEmptySpawnQueue()&&spawnerRapunzel.hasEmptySpawnQueue());
@@ -76,10 +76,10 @@ public class RapunzelLevel extends Level{
 		}
 
 		public void onStart(){
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
 			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 		}
@@ -95,12 +95,12 @@ public class RapunzelLevel extends Level{
 		}
 	
 		public void onStart(){
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
 			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
@@ -118,14 +118,14 @@ public class RapunzelLevel extends Level{
 		}
 
 		public void onStart(){
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerRight.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
-			spawnerLeft.addToSpawnQueue(new Enemy(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerRight.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
+			spawnerLeft.addToSpawnQueue(new Wolf(level.game,new Point2D.Double(0, 0)));
 			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerRight.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));
 			spawnerLeft.addToSpawnQueue(new EnemyArcher(level.game, new Point2D.Double(0, 0)));

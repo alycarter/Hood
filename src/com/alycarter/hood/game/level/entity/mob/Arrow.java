@@ -59,7 +59,7 @@ public class Arrow extends Entity{
 }
 
 class ArrowAnimation extends AnimationLayer{
-	private static TextureTileLoader arrow= new TextureTileLoader("arrow.png", 16);
+	private static TextureTileLoader arrow= new TextureTileLoader("arrow.png", 58);
 	
 	public ArrowAnimation(Game game){
 		addAnimation(new Animation(game,"arrow",arrow,1),true);

@@ -46,8 +46,8 @@ public class SwordSlash extends Mob{
 
 class SlashAnimation extends AnimationLayer{
 	
-	public SlashAnimation(Game game){
-		addAnimation(new Animation(game,SwordSlash.slashLeft,"slash.png",16,1),true);
-		addAnimation(new Animation(game,SwordSlash.slashRight,"slash.png",16,1),true);
+	public SlashAnimation(Game game){//directions are opposite...... deal with it
+		addAnimation(new Animation(game,SwordSlash.slashRight,"slashLeft.png",144,1),true);
+		addAnimation(new Animation(game,SwordSlash.slashLeft,"slashRight.png",144,1),true);
 	}
 }

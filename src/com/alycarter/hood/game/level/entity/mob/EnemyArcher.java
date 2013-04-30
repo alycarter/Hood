@@ -241,7 +241,7 @@ public class EnemyArcher extends Mob{
 }
 
 class ArcherAnimation extends AnimationLayer{
-	private static TextureTileLoader bow= new TextureTileLoader("bow.png", 128);
+	private static TextureTileLoader bow= new TextureTileLoader("archer.png", 288);
 	
 	public ArcherAnimation(Game game){
 		addAnimation(new Animation(game,"bow",bow,1),true);
@@ -250,7 +250,7 @@ class ArcherAnimation extends AnimationLayer{
 
 class ArcherDeathAnimation extends AnimationLayer{
 	public final static int chunks=25;
-	private static TextureTileLoader bow= new TextureTileLoader("bow.png", 128/(int)Math.sqrt(chunks));
+	private static TextureTileLoader bow= new TextureTileLoader("archer.png", 288/(int)Math.sqrt(chunks));
 	
 	public ArcherDeathAnimation(Game game){
 		for(int i=0;i<chunks;i++){
